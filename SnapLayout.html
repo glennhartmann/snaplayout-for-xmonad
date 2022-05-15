@@ -1,0 +1,1160 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><meta name="viewport" content="width=device-width, initial-scale=1"
+     /><title
+    >SnapLayout</title
+    ><link href="linuwial.css" rel="stylesheet" type="text/css" title="Linuwial"
+     /><link rel="stylesheet" type="text/css" href="quick-jump.css"
+     /><script src="haddock-bundle.min.js" async="async" type="text/javascript"
+    ></script
+    ><script type="text/x-mathjax-config"
+    >MathJax.Hub.Config({ tex2jax: { processClass: "mathjax", ignoreClass: ".*" } });</script
+    ><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"
+    ></script
+    ></head
+  ><body
+  ><div id="package-header"
+    ><span class="caption empty"
+      >&nbsp;</span
+      ><ul class="links" id="page-menu"
+      ><li
+	><a href="src/SnapLayout.html"
+	  >Source</a
+	  ></li
+	><li
+	><a href="index.html"
+	  >Contents</a
+	  ></li
+	><li
+	><a href="doc-index.html"
+	  >Index</a
+	  ></li
+	></ul
+      ></div
+    ><div id="content"
+    ><div id="module-header"
+      ><table class="info"
+	><tr
+	  ><th valign="top"
+	    >Copyright</th
+	    ><td
+	    >(c) Google LLC</td
+	    ></tr
+	  ><tr
+	  ><th
+	    >License</th
+	    ><td
+	    >Apache-2.0 (see LICENSE)</td
+	    ></tr
+	  ><tr
+	  ><th
+	    >Maintainer</th
+	    ><td
+	    >hartmanng@google.com</td
+	    ></tr
+	  ><tr
+	  ><th
+	    >Stability</th
+	    ><td
+	    >unstable</td
+	    ></tr
+	  ><tr
+	  ><th
+	    >Portability</th
+	    ><td
+	    >unportable</td
+	    ></tr
+	  ><tr
+	  ><th
+	    >Safe Haskell</th
+	    ><td
+	    >None</td
+	    ></tr
+	  ></table
+	><p class="caption"
+	>SnapLayout</p
+	></div
+      ><div id="table-of-contents"
+      ><div id="contents-list"
+	><p class="caption" onclick="window.scrollTo(0,0)"
+	  >Contents</p
+	  ><ul
+	  ><li
+	    ><a href="#g:1"
+	      >Usage</a
+	      ></li
+	    ></ul
+	  ></div
+	></div
+      ><div id="description"
+      ><p class="caption"
+	>Description</p
+	><div class="doc"
+	><p
+	  >LayoutClass that lets the user snap windows to particular edges or corners of the screen, at 1/2
+ screen width and/or height.</p
+	  ></div
+	></div
+      ><div id="synopsis"
+      ><details id="syn"
+	><summary
+	  >Synopsis</summary
+	  ><ul class="details-toggle" data-details-id="syn"
+	  ><li class="src short"
+	    ><span class="keyword"
+	      >data</span
+	      > <a href="#t:SnapLayout"
+	      >SnapLayout</a
+	      > a = <a href="#v:SnapLayout"
+	      >SnapLayout</a
+	      > {<ul class="subs"
+	      ><li
+		><a href="#v:snapped"
+		  >snapped</a
+		  > :: !(Map Window FullLoc)</li
+		><li
+		><a href="#v:adjustmentDelta"
+		  >adjustmentDelta</a
+		  > :: Rational</li
+		></ul
+	      >}</li
+	    ><li class="src short"
+	    ><span class="keyword"
+	      >data</span
+	      > <a href="#t:SnapLoc"
+	      >SnapLoc</a
+	      ><ul class="subs"
+	      ><li
+		>= <a href="#v:Top"
+		  >Top</a
+		  ></li
+		><li
+		>| <a href="#v:Bottom"
+		  >Bottom</a
+		  ></li
+		><li
+		>| <a href="#v:Left"
+		  >Left</a
+		  ></li
+		><li
+		>| <a href="#v:Right"
+		  >Right</a
+		  ></li
+		><li
+		>| <a href="#v:TopLeft"
+		  >TopLeft</a
+		  ></li
+		><li
+		>| <a href="#v:TopRight"
+		  >TopRight</a
+		  ></li
+		><li
+		>| <a href="#v:BottomLeft"
+		  >BottomLeft</a
+		  ></li
+		><li
+		>| <a href="#v:BottomRight"
+		  >BottomRight</a
+		  ></li
+		></ul
+	      ></li
+	    ><li class="src short"
+	    ><span class="keyword"
+	      >data</span
+	      > <a href="#t:Snap"
+	      >Snap</a
+	      > = <a href="#v:Snap"
+	      >Snap</a
+	      > <a href="SnapLayout.html#t:SnapLoc" title="SnapLayout"
+	      >SnapLoc</a
+	      > Window</li
+	    ><li class="src short"
+	    ><span class="keyword"
+	      >data</span
+	      > <a href="#t:FineAdjustmentMessage"
+	      >FineAdjustmentMessage</a
+	      > = <a href="#v:FineAdjustmentMessage"
+	      >FineAdjustmentMessage</a
+	      > <a href="SnapLayout.html#t:FineAdjustmentDirection" title="SnapLayout"
+	      >FineAdjustmentDirection</a
+	      > Window</li
+	    ><li class="src short"
+	    ><span class="keyword"
+	      >data</span
+	      > <a href="#t:FineAdjustmentDirection"
+	      >FineAdjustmentDirection</a
+	      ><ul class="subs"
+	      ><li
+		>= <a href="#v:TopAdjustment"
+		  >TopAdjustment</a
+		  ></li
+		><li
+		>| <a href="#v:BottomAdjustment"
+		  >BottomAdjustment</a
+		  ></li
+		><li
+		>| <a href="#v:LeftAdjustment"
+		  >LeftAdjustment</a
+		  ></li
+		><li
+		>| <a href="#v:RightAdjustment"
+		  >RightAdjustment</a
+		  ></li
+		><li
+		>| <a href="#v:TopLeftAdjustment"
+		  >TopLeftAdjustment</a
+		  ></li
+		><li
+		>| <a href="#v:TopRightAdjustment"
+		  >TopRightAdjustment</a
+		  ></li
+		><li
+		>| <a href="#v:BottomLeftAdjustment"
+		  >BottomLeftAdjustment</a
+		  ></li
+		><li
+		>| <a href="#v:BottomRightAdjustment"
+		  >BottomRightAdjustment</a
+		  ></li
+		></ul
+	      ></li
+	    ><li class="src short"
+	    ><span class="keyword"
+	      >data</span
+	      > <a href="#t:Unsnap"
+	      >Unsnap</a
+	      > = <a href="#v:Unsnap"
+	      >Unsnap</a
+	      > Window</li
+	    ><li class="src short"
+	    ><span class="keyword"
+	      >data</span
+	      > <a href="#t:Unadjust"
+	      >Unadjust</a
+	      > = <a href="#v:Unadjust"
+	      >Unadjust</a
+	      > Window</li
+	    ></ul
+	  ></details
+	></div
+      ><div id="interface"
+      ><a href="#g:1" id="g:1"
+	><h1
+	  >Usage</h1
+	  ></a
+	><div class="doc"
+	><p
+	  >You can use this module with the following in your <code
+	    >~/.xmonad/xmonad.hs</code
+	    >:</p
+	  ><pre
+	  >import SnapLayout</pre
+	  ><p
+	  >Then edit your <code
+	    >layoutHook</code
+	    > by adding the SnapLayout:</p
+	  ><pre
+	  >myLayout = snapLayout ||| Full ||| etc..
+  where
+    snapLayout :: SnapLayout a
+    snapLayout = def
+main = xmonad def { layoutHook = myLayout }</pre
+	  ><p
+	  >Or, to customize the fine adjustment increment:</p
+	  ><pre
+	  >myLayout = snapLayout ||| Full ||| etc..
+  where
+    snapLayout :: SnapLayout a
+    snapLayout = def { adjustmentDelta = 3/100 }
+main = xmonad def { layoutHook = myLayout }</pre
+	  ><p
+	  >For more detailed instructions on editing the layoutHook see:</p
+	  ><p
+	  ><a href="XMonad-Doc-Extending.html#Editing_the_layout_hook"
+	    >XMonad.Doc.Extending</a
+	    ></p
+	  ><p
+	  >In the key-bindings, do something like:</p
+	  ><pre
+	  >, ((modm .|. controlMask, xK_KP_End      ), withFocused (sendMessage . Snap BottomLeft))
+, ((modm .|. controlMask, xK_KP_Down     ), withFocused (sendMessage . Snap Bottom))
+, ((modm .|. controlMask, xK_KP_Page_Down), withFocused (sendMessage . Snap BottomRight))
+, ((modm .|. controlMask, xK_KP_Left     ), withFocused (sendMessage . Snap SnapLayout.Left))
+, ((modm .|. controlMask, xK_KP_Right    ), withFocused (sendMessage . Snap SnapLayout.Right))
+, ((modm .|. controlMask, xK_KP_Home     ), withFocused (sendMessage . Snap TopLeft))
+, ((modm .|. controlMask, xK_KP_Up       ), withFocused (sendMessage . Snap Top))
+, ((modm .|. controlMask, xK_KP_Page_Up  ), withFocused (sendMessage . Snap TopRight))
+, ((modm .|. controlMask, xK_KP_Insert   ), withFocused (sendMessage . Unsnap))
+
+, ((modm .|. controlMask .|. shiftMask, xK_KP_End),
+      withFocused (sendMessage . FineAdjustmentMessage BottomLeftAdjustment))
+, ((modm .|. controlMask .|. shiftMask, xK_KP_Down),
+      withFocused (sendMessage . FineAdjustmentMessage BottomAdjustment))
+, ((modm .|. controlMask .|. shiftMask, xK_KP_Page_Down),
+      withFocused (sendMessage . FineAdjustmentMessage BottomRightAdjustment))
+, ((modm .|. controlMask .|. shiftMask, xK_KP_Left),
+      withFocused (sendMessage . FineAdjustmentMessage LeftAdjustment))
+, ((modm .|. controlMask .|. shiftMask, xK_KP_Right),
+      withFocused (sendMessage . FineAdjustmentMessage RightAdjustment))
+, ((modm .|. controlMask .|. shiftMask, xK_KP_Home),
+      withFocused (sendMessage . FineAdjustmentMessage TopLeftAdjustment))
+, ((modm .|. controlMask .|. shiftMask, xK_KP_Up),
+      withFocused (sendMessage . FineAdjustmentMessage TopAdjustment))
+, ((modm .|. controlMask .|. shiftMask, xK_KP_Page_Up),
+      withFocused (sendMessage . FineAdjustmentMessage TopRightAdjustment))
+, ((modm .|. controlMask .|. shiftMask, xK_KP_Insert), withFocused (sendMessage . Unadjust))
+...</pre
+	  ><p
+	  >For detailed instruction on editing the key binding see:</p
+	  ><p
+	  ><a href="XMonad-Doc-Extending.html#Editing_key_bindings"
+	    >XMonad.Doc.Extending</a
+	    >.</p
+	  ></div
+	><div class="top"
+	><p class="src"
+	  ><span class="keyword"
+	    >data</span
+	    > <a id="t:SnapLayout" class="def"
+	    >SnapLayout</a
+	    > a <a href="src/SnapLayout.html#SnapLayout" class="link"
+	    >Source</a
+	    > <a href="#t:SnapLayout" class="selflink"
+	    >#</a
+	    ></p
+	  ><div class="subs constructors"
+	  ><p class="caption"
+	    >Constructors</p
+	    ><table
+	    ><tr
+	      ><td class="src"
+		><a id="v:SnapLayout" class="def"
+		  >SnapLayout</a
+		  ></td
+		><td class="doc empty"
+		>&nbsp;</td
+		></tr
+	      ><tr
+	      ><td colspan="2"
+		><div class="subs fields"
+		  ><p class="caption"
+		    >Fields</p
+		    ><ul
+		    ><li
+		      ><dfn class="src"
+			><a id="v:snapped" class="def"
+			  >snapped</a
+			  > :: !(Map Window FullLoc)</dfn
+			><div class="doc"
+			><p
+			  >Map used internally to keep track of Window states (default: Map.empty)</p
+			  ></div
+			></li
+		      ><li
+		      ><dfn class="src"
+			><a id="v:adjustmentDelta" class="def"
+			  >adjustmentDelta</a
+			  > :: Rational</dfn
+			><div class="doc"
+			><p
+			  >Percent of screen to adjust by in response to each FineAdjustmentMessage (default: 3/100)</p
+			  ></div
+			></li
+		      ></ul
+		    ></div
+		  ></td
+		></tr
+	      ></table
+	    ></div
+	  ><div class="subs instances"
+	  ><h4 class="instances details-toggle-control details-toggle" data-details-id="i:SnapLayout"
+	    >Instances</h4
+	    ><details id="i:SnapLayout" open="open"
+	    ><summary class="hide-when-js-enabled"
+	      >Instances details</summary
+	      ><table
+	      ><tr
+		><td class="src clearfix"
+		  ><span class="inst-left"
+		    ><span class="instance details-toggle-control details-toggle" data-details-id="i:id:SnapLayout:LayoutClass:1"
+		      ></span
+		      > LayoutClass <a href="SnapLayout.html#t:SnapLayout" title="SnapLayout"
+		      >SnapLayout</a
+		      > Window</span
+		    > <a href="src/SnapLayout.html#line-233" class="link"
+		    >Source</a
+		    > <a href="#t:SnapLayout" class="selflink"
+		    >#</a
+		    ></td
+		  ><td class="doc empty"
+		  >&nbsp;</td
+		  ></tr
+		><tr
+		><td colspan="2"
+		  ><details id="i:id:SnapLayout:LayoutClass:1"
+		    ><summary class="hide-when-js-enabled"
+		      >Instance details</summary
+		      ><p
+		      >Defined in <a href="SnapLayout.html"
+			>SnapLayout</a
+			></p
+		      > <div class="subs methods"
+		      ><p class="caption"
+			>Methods</p
+			><p class="src"
+			><a href="#v:runLayout"
+			  >runLayout</a
+			  > :: Workspace WorkspaceId (<a href="SnapLayout.html#t:SnapLayout" title="SnapLayout"
+			  >SnapLayout</a
+			  > Window) Window -&gt; Rectangle -&gt; X ([(Window, Rectangle)], Maybe (<a href="SnapLayout.html#t:SnapLayout" title="SnapLayout"
+			  >SnapLayout</a
+			  > Window))</p
+			><p class="src"
+			><a href="#v:doLayout"
+			  >doLayout</a
+			  > :: <a href="SnapLayout.html#t:SnapLayout" title="SnapLayout"
+			  >SnapLayout</a
+			  > Window -&gt; Rectangle -&gt; Stack Window -&gt; X ([(Window, Rectangle)], Maybe (<a href="SnapLayout.html#t:SnapLayout" title="SnapLayout"
+			  >SnapLayout</a
+			  > Window))</p
+			><p class="src"
+			><a href="#v:pureLayout"
+			  >pureLayout</a
+			  > :: <a href="SnapLayout.html#t:SnapLayout" title="SnapLayout"
+			  >SnapLayout</a
+			  > Window -&gt; Rectangle -&gt; Stack Window -&gt; [(Window, Rectangle)]</p
+			><p class="src"
+			><a href="#v:emptyLayout"
+			  >emptyLayout</a
+			  > :: <a href="SnapLayout.html#t:SnapLayout" title="SnapLayout"
+			  >SnapLayout</a
+			  > Window -&gt; Rectangle -&gt; X ([(Window, Rectangle)], Maybe (<a href="SnapLayout.html#t:SnapLayout" title="SnapLayout"
+			  >SnapLayout</a
+			  > Window))</p
+			><p class="src"
+			><a href="#v:handleMessage"
+			  >handleMessage</a
+			  > :: <a href="SnapLayout.html#t:SnapLayout" title="SnapLayout"
+			  >SnapLayout</a
+			  > Window -&gt; SomeMessage -&gt; X (Maybe (<a href="SnapLayout.html#t:SnapLayout" title="SnapLayout"
+			  >SnapLayout</a
+			  > Window))</p
+			><p class="src"
+			><a href="#v:pureMessage"
+			  >pureMessage</a
+			  > :: <a href="SnapLayout.html#t:SnapLayout" title="SnapLayout"
+			  >SnapLayout</a
+			  > Window -&gt; SomeMessage -&gt; Maybe (<a href="SnapLayout.html#t:SnapLayout" title="SnapLayout"
+			  >SnapLayout</a
+			  > Window)</p
+			><p class="src"
+			><a href="#v:description"
+			  >description</a
+			  > :: <a href="SnapLayout.html#t:SnapLayout" title="SnapLayout"
+			  >SnapLayout</a
+			  > Window -&gt; String</p
+			></div
+		      ></details
+		    ></td
+		  ></tr
+		><tr
+		><td class="src clearfix"
+		  ><span class="inst-left"
+		    ><span class="instance details-toggle-control details-toggle" data-details-id="i:id:SnapLayout:Read:2"
+		      ></span
+		      > Read (<a href="SnapLayout.html#t:SnapLayout" title="SnapLayout"
+		      >SnapLayout</a
+		      > a)</span
+		    > <a href="src/SnapLayout.html#line-228" class="link"
+		    >Source</a
+		    > <a href="#t:SnapLayout" class="selflink"
+		    >#</a
+		    ></td
+		  ><td class="doc empty"
+		  >&nbsp;</td
+		  ></tr
+		><tr
+		><td colspan="2"
+		  ><details id="i:id:SnapLayout:Read:2"
+		    ><summary class="hide-when-js-enabled"
+		      >Instance details</summary
+		      ><p
+		      >Defined in <a href="SnapLayout.html"
+			>SnapLayout</a
+			></p
+		      > <div class="subs methods"
+		      ><p class="caption"
+			>Methods</p
+			><p class="src"
+			><a href="#v:readsPrec"
+			  >readsPrec</a
+			  > :: Int -&gt; ReadS (<a href="SnapLayout.html#t:SnapLayout" title="SnapLayout"
+			  >SnapLayout</a
+			  > a)</p
+			><p class="src"
+			><a href="#v:readList"
+			  >readList</a
+			  > :: ReadS [<a href="SnapLayout.html#t:SnapLayout" title="SnapLayout"
+			  >SnapLayout</a
+			  > a]</p
+			><p class="src"
+			><a href="#v:readPrec"
+			  >readPrec</a
+			  > :: ReadPrec (<a href="SnapLayout.html#t:SnapLayout" title="SnapLayout"
+			  >SnapLayout</a
+			  > a)</p
+			><p class="src"
+			><a href="#v:readListPrec"
+			  >readListPrec</a
+			  > :: ReadPrec [<a href="SnapLayout.html#t:SnapLayout" title="SnapLayout"
+			  >SnapLayout</a
+			  > a]</p
+			></div
+		      ></details
+		    ></td
+		  ></tr
+		><tr
+		><td class="src clearfix"
+		  ><span class="inst-left"
+		    ><span class="instance details-toggle-control details-toggle" data-details-id="i:id:SnapLayout:Show:3"
+		      ></span
+		      > Show (<a href="SnapLayout.html#t:SnapLayout" title="SnapLayout"
+		      >SnapLayout</a
+		      > a)</span
+		    > <a href="src/SnapLayout.html#line-228" class="link"
+		    >Source</a
+		    > <a href="#t:SnapLayout" class="selflink"
+		    >#</a
+		    ></td
+		  ><td class="doc empty"
+		  >&nbsp;</td
+		  ></tr
+		><tr
+		><td colspan="2"
+		  ><details id="i:id:SnapLayout:Show:3"
+		    ><summary class="hide-when-js-enabled"
+		      >Instance details</summary
+		      ><p
+		      >Defined in <a href="SnapLayout.html"
+			>SnapLayout</a
+			></p
+		      > <div class="subs methods"
+		      ><p class="caption"
+			>Methods</p
+			><p class="src"
+			><a href="#v:showsPrec"
+			  >showsPrec</a
+			  > :: Int -&gt; <a href="SnapLayout.html#t:SnapLayout" title="SnapLayout"
+			  >SnapLayout</a
+			  > a -&gt; ShowS</p
+			><p class="src"
+			><a href="#v:show"
+			  >show</a
+			  > :: <a href="SnapLayout.html#t:SnapLayout" title="SnapLayout"
+			  >SnapLayout</a
+			  > a -&gt; String</p
+			><p class="src"
+			><a href="#v:showList"
+			  >showList</a
+			  > :: [<a href="SnapLayout.html#t:SnapLayout" title="SnapLayout"
+			  >SnapLayout</a
+			  > a] -&gt; ShowS</p
+			></div
+		      ></details
+		    ></td
+		  ></tr
+		><tr
+		><td class="src clearfix"
+		  ><span class="inst-left"
+		    ><span class="instance details-toggle-control details-toggle" data-details-id="i:id:SnapLayout:Default:4"
+		      ></span
+		      > Default (<a href="SnapLayout.html#t:SnapLayout" title="SnapLayout"
+		      >SnapLayout</a
+		      > a)</span
+		    > <a href="src/SnapLayout.html#line-230" class="link"
+		    >Source</a
+		    > <a href="#t:SnapLayout" class="selflink"
+		    >#</a
+		    ></td
+		  ><td class="doc empty"
+		  >&nbsp;</td
+		  ></tr
+		><tr
+		><td colspan="2"
+		  ><details id="i:id:SnapLayout:Default:4"
+		    ><summary class="hide-when-js-enabled"
+		      >Instance details</summary
+		      ><p
+		      >Defined in <a href="SnapLayout.html"
+			>SnapLayout</a
+			></p
+		      > <div class="subs methods"
+		      ><p class="caption"
+			>Methods</p
+			><p class="src"
+			><a href="#v:def"
+			  >def</a
+			  > :: <a href="SnapLayout.html#t:SnapLayout" title="SnapLayout"
+			  >SnapLayout</a
+			  > a</p
+			></div
+		      ></details
+		    ></td
+		  ></tr
+		></table
+	      ></details
+	    ></div
+	  ></div
+	><div class="top"
+	><p class="src"
+	  ><span class="keyword"
+	    >data</span
+	    > <a id="t:SnapLoc" class="def"
+	    >SnapLoc</a
+	    > <a href="src/SnapLayout.html#SnapLoc" class="link"
+	    >Source</a
+	    > <a href="#t:SnapLoc" class="selflink"
+	    >#</a
+	    ></p
+	  ><div class="subs constructors"
+	  ><p class="caption"
+	    >Constructors</p
+	    ><table
+	    ><tr
+	      ><td class="src"
+		><a id="v:Top" class="def"
+		  >Top</a
+		  ></td
+		><td class="doc empty"
+		>&nbsp;</td
+		></tr
+	      ><tr
+	      ><td class="src"
+		><a id="v:Bottom" class="def"
+		  >Bottom</a
+		  ></td
+		><td class="doc empty"
+		>&nbsp;</td
+		></tr
+	      ><tr
+	      ><td class="src"
+		><a id="v:Left" class="def"
+		  >Left</a
+		  ></td
+		><td class="doc empty"
+		>&nbsp;</td
+		></tr
+	      ><tr
+	      ><td class="src"
+		><a id="v:Right" class="def"
+		  >Right</a
+		  ></td
+		><td class="doc empty"
+		>&nbsp;</td
+		></tr
+	      ><tr
+	      ><td class="src"
+		><a id="v:TopLeft" class="def"
+		  >TopLeft</a
+		  ></td
+		><td class="doc empty"
+		>&nbsp;</td
+		></tr
+	      ><tr
+	      ><td class="src"
+		><a id="v:TopRight" class="def"
+		  >TopRight</a
+		  ></td
+		><td class="doc empty"
+		>&nbsp;</td
+		></tr
+	      ><tr
+	      ><td class="src"
+		><a id="v:BottomLeft" class="def"
+		  >BottomLeft</a
+		  ></td
+		><td class="doc empty"
+		>&nbsp;</td
+		></tr
+	      ><tr
+	      ><td class="src"
+		><a id="v:BottomRight" class="def"
+		  >BottomRight</a
+		  ></td
+		><td class="doc empty"
+		>&nbsp;</td
+		></tr
+	      ></table
+	    ></div
+	  ><div class="subs instances"
+	  ><h4 class="instances details-toggle-control details-toggle" data-details-id="i:SnapLoc"
+	    >Instances</h4
+	    ><details id="i:SnapLoc" open="open"
+	    ><summary class="hide-when-js-enabled"
+	      >Instances details</summary
+	      ><table
+	      ><tr
+		><td class="src clearfix"
+		  ><span class="inst-left"
+		    ><span class="instance details-toggle-control details-toggle" data-details-id="i:id:SnapLoc:Read:1"
+		      ></span
+		      > Read <a href="SnapLayout.html#t:SnapLoc" title="SnapLayout"
+		      >SnapLoc</a
+		      ></span
+		    > <a href="src/SnapLayout.html#line-113" class="link"
+		    >Source</a
+		    > <a href="#t:SnapLoc" class="selflink"
+		    >#</a
+		    ></td
+		  ><td class="doc empty"
+		  >&nbsp;</td
+		  ></tr
+		><tr
+		><td colspan="2"
+		  ><details id="i:id:SnapLoc:Read:1"
+		    ><summary class="hide-when-js-enabled"
+		      >Instance details</summary
+		      ><p
+		      >Defined in <a href="SnapLayout.html"
+			>SnapLayout</a
+			></p
+		      > <div class="subs methods"
+		      ><p class="caption"
+			>Methods</p
+			><p class="src"
+			><a href="#v:readsPrec"
+			  >readsPrec</a
+			  > :: Int -&gt; ReadS <a href="SnapLayout.html#t:SnapLoc" title="SnapLayout"
+			  >SnapLoc</a
+			  ></p
+			><p class="src"
+			><a href="#v:readList"
+			  >readList</a
+			  > :: ReadS [<a href="SnapLayout.html#t:SnapLoc" title="SnapLayout"
+			  >SnapLoc</a
+			  >]</p
+			><p class="src"
+			><a href="#v:readPrec"
+			  >readPrec</a
+			  > :: ReadPrec <a href="SnapLayout.html#t:SnapLoc" title="SnapLayout"
+			  >SnapLoc</a
+			  ></p
+			><p class="src"
+			><a href="#v:readListPrec"
+			  >readListPrec</a
+			  > :: ReadPrec [<a href="SnapLayout.html#t:SnapLoc" title="SnapLayout"
+			  >SnapLoc</a
+			  >]</p
+			></div
+		      ></details
+		    ></td
+		  ></tr
+		><tr
+		><td class="src clearfix"
+		  ><span class="inst-left"
+		    ><span class="instance details-toggle-control details-toggle" data-details-id="i:id:SnapLoc:Show:2"
+		      ></span
+		      > Show <a href="SnapLayout.html#t:SnapLoc" title="SnapLayout"
+		      >SnapLoc</a
+		      ></span
+		    > <a href="src/SnapLayout.html#line-113" class="link"
+		    >Source</a
+		    > <a href="#t:SnapLoc" class="selflink"
+		    >#</a
+		    ></td
+		  ><td class="doc empty"
+		  >&nbsp;</td
+		  ></tr
+		><tr
+		><td colspan="2"
+		  ><details id="i:id:SnapLoc:Show:2"
+		    ><summary class="hide-when-js-enabled"
+		      >Instance details</summary
+		      ><p
+		      >Defined in <a href="SnapLayout.html"
+			>SnapLayout</a
+			></p
+		      > <div class="subs methods"
+		      ><p class="caption"
+			>Methods</p
+			><p class="src"
+			><a href="#v:showsPrec"
+			  >showsPrec</a
+			  > :: Int -&gt; <a href="SnapLayout.html#t:SnapLoc" title="SnapLayout"
+			  >SnapLoc</a
+			  > -&gt; ShowS</p
+			><p class="src"
+			><a href="#v:show"
+			  >show</a
+			  > :: <a href="SnapLayout.html#t:SnapLoc" title="SnapLayout"
+			  >SnapLoc</a
+			  > -&gt; String</p
+			><p class="src"
+			><a href="#v:showList"
+			  >showList</a
+			  > :: [<a href="SnapLayout.html#t:SnapLoc" title="SnapLayout"
+			  >SnapLoc</a
+			  >] -&gt; ShowS</p
+			></div
+		      ></details
+		    ></td
+		  ></tr
+		></table
+	      ></details
+	    ></div
+	  ></div
+	><div class="top"
+	><p class="src"
+	  ><span class="keyword"
+	    >data</span
+	    > <a id="t:Snap" class="def"
+	    >Snap</a
+	    > <a href="src/SnapLayout.html#Snap" class="link"
+	    >Source</a
+	    > <a href="#t:Snap" class="selflink"
+	    >#</a
+	    ></p
+	  ><div class="subs constructors"
+	  ><p class="caption"
+	    >Constructors</p
+	    ><table
+	    ><tr
+	      ><td class="src"
+		><a id="v:Snap" class="def"
+		  >Snap</a
+		  > <a href="SnapLayout.html#t:SnapLoc" title="SnapLayout"
+		  >SnapLoc</a
+		  > Window</td
+		><td class="doc empty"
+		>&nbsp;</td
+		></tr
+	      ></table
+	    ></div
+	  ><div class="subs instances"
+	  ><h4 class="instances details-toggle-control details-toggle" data-details-id="i:Snap"
+	    >Instances</h4
+	    ><details id="i:Snap" open="open"
+	    ><summary class="hide-when-js-enabled"
+	      >Instances details</summary
+	      ><table
+	      ><tr
+		><td class="src clearfix"
+		  ><span class="inst-left"
+		    ><span class="instance details-toggle-control details-toggle" data-details-id="i:id:Snap:Message:1"
+		      ></span
+		      > Message <a href="SnapLayout.html#t:Snap" title="SnapLayout"
+		      >Snap</a
+		      ></span
+		    > <a href="src/SnapLayout.html#line-180" class="link"
+		    >Source</a
+		    > <a href="#t:Snap" class="selflink"
+		    >#</a
+		    ></td
+		  ><td class="doc empty"
+		  >&nbsp;</td
+		  ></tr
+		><tr
+		><td colspan="2"
+		  ><details id="i:id:Snap:Message:1"
+		    ><summary class="hide-when-js-enabled"
+		      >Instance details</summary
+		      ><p
+		      >Defined in <a href="SnapLayout.html"
+			>SnapLayout</a
+			></p
+		      ></details
+		    ></td
+		  ></tr
+		></table
+	      ></details
+	    ></div
+	  ></div
+	><div class="top"
+	><p class="src"
+	  ><span class="keyword"
+	    >data</span
+	    > <a id="t:FineAdjustmentMessage" class="def"
+	    >FineAdjustmentMessage</a
+	    > <a href="src/SnapLayout.html#FineAdjustmentMessage" class="link"
+	    >Source</a
+	    > <a href="#t:FineAdjustmentMessage" class="selflink"
+	    >#</a
+	    ></p
+	  ><div class="subs constructors"
+	  ><p class="caption"
+	    >Constructors</p
+	    ><table
+	    ><tr
+	      ><td class="src"
+		><a id="v:FineAdjustmentMessage" class="def"
+		  >FineAdjustmentMessage</a
+		  > <a href="SnapLayout.html#t:FineAdjustmentDirection" title="SnapLayout"
+		  >FineAdjustmentDirection</a
+		  > Window</td
+		><td class="doc empty"
+		>&nbsp;</td
+		></tr
+	      ></table
+	    ></div
+	  ><div class="subs instances"
+	  ><h4 class="instances details-toggle-control details-toggle" data-details-id="i:FineAdjustmentMessage"
+	    >Instances</h4
+	    ><details id="i:FineAdjustmentMessage" open="open"
+	    ><summary class="hide-when-js-enabled"
+	      >Instances details</summary
+	      ><table
+	      ><tr
+		><td class="src clearfix"
+		  ><span class="inst-left"
+		    ><span class="instance details-toggle-control details-toggle" data-details-id="i:id:FineAdjustmentMessage:Message:1"
+		      ></span
+		      > Message <a href="SnapLayout.html#t:FineAdjustmentMessage" title="SnapLayout"
+		      >FineAdjustmentMessage</a
+		      ></span
+		    > <a href="src/SnapLayout.html#line-211" class="link"
+		    >Source</a
+		    > <a href="#t:FineAdjustmentMessage" class="selflink"
+		    >#</a
+		    ></td
+		  ><td class="doc empty"
+		  >&nbsp;</td
+		  ></tr
+		><tr
+		><td colspan="2"
+		  ><details id="i:id:FineAdjustmentMessage:Message:1"
+		    ><summary class="hide-when-js-enabled"
+		      >Instance details</summary
+		      ><p
+		      >Defined in <a href="SnapLayout.html"
+			>SnapLayout</a
+			></p
+		      ></details
+		    ></td
+		  ></tr
+		></table
+	      ></details
+	    ></div
+	  ></div
+	><div class="top"
+	><p class="src"
+	  ><span class="keyword"
+	    >data</span
+	    > <a id="t:FineAdjustmentDirection" class="def"
+	    >FineAdjustmentDirection</a
+	    > <a href="src/SnapLayout.html#FineAdjustmentDirection" class="link"
+	    >Source</a
+	    > <a href="#t:FineAdjustmentDirection" class="selflink"
+	    >#</a
+	    ></p
+	  ><div class="subs constructors"
+	  ><p class="caption"
+	    >Constructors</p
+	    ><table
+	    ><tr
+	      ><td class="src"
+		><a id="v:TopAdjustment" class="def"
+		  >TopAdjustment</a
+		  ></td
+		><td class="doc empty"
+		>&nbsp;</td
+		></tr
+	      ><tr
+	      ><td class="src"
+		><a id="v:BottomAdjustment" class="def"
+		  >BottomAdjustment</a
+		  ></td
+		><td class="doc empty"
+		>&nbsp;</td
+		></tr
+	      ><tr
+	      ><td class="src"
+		><a id="v:LeftAdjustment" class="def"
+		  >LeftAdjustment</a
+		  ></td
+		><td class="doc empty"
+		>&nbsp;</td
+		></tr
+	      ><tr
+	      ><td class="src"
+		><a id="v:RightAdjustment" class="def"
+		  >RightAdjustment</a
+		  ></td
+		><td class="doc empty"
+		>&nbsp;</td
+		></tr
+	      ><tr
+	      ><td class="src"
+		><a id="v:TopLeftAdjustment" class="def"
+		  >TopLeftAdjustment</a
+		  ></td
+		><td class="doc empty"
+		>&nbsp;</td
+		></tr
+	      ><tr
+	      ><td class="src"
+		><a id="v:TopRightAdjustment" class="def"
+		  >TopRightAdjustment</a
+		  ></td
+		><td class="doc empty"
+		>&nbsp;</td
+		></tr
+	      ><tr
+	      ><td class="src"
+		><a id="v:BottomLeftAdjustment" class="def"
+		  >BottomLeftAdjustment</a
+		  ></td
+		><td class="doc empty"
+		>&nbsp;</td
+		></tr
+	      ><tr
+	      ><td class="src"
+		><a id="v:BottomRightAdjustment" class="def"
+		  >BottomRightAdjustment</a
+		  ></td
+		><td class="doc empty"
+		>&nbsp;</td
+		></tr
+	      ></table
+	    ></div
+	  ></div
+	><div class="top"
+	><p class="src"
+	  ><span class="keyword"
+	    >data</span
+	    > <a id="t:Unsnap" class="def"
+	    >Unsnap</a
+	    > <a href="src/SnapLayout.html#Unsnap" class="link"
+	    >Source</a
+	    > <a href="#t:Unsnap" class="selflink"
+	    >#</a
+	    ></p
+	  ><div class="subs constructors"
+	  ><p class="caption"
+	    >Constructors</p
+	    ><table
+	    ><tr
+	      ><td class="src"
+		><a id="v:Unsnap" class="def"
+		  >Unsnap</a
+		  > Window</td
+		><td class="doc empty"
+		>&nbsp;</td
+		></tr
+	      ></table
+	    ></div
+	  ><div class="subs instances"
+	  ><h4 class="instances details-toggle-control details-toggle" data-details-id="i:Unsnap"
+	    >Instances</h4
+	    ><details id="i:Unsnap" open="open"
+	    ><summary class="hide-when-js-enabled"
+	      >Instances details</summary
+	      ><table
+	      ><tr
+		><td class="src clearfix"
+		  ><span class="inst-left"
+		    ><span class="instance details-toggle-control details-toggle" data-details-id="i:id:Unsnap:Message:1"
+		      ></span
+		      > Message <a href="SnapLayout.html#t:Unsnap" title="SnapLayout"
+		      >Unsnap</a
+		      ></span
+		    > <a href="src/SnapLayout.html#line-216" class="link"
+		    >Source</a
+		    > <a href="#t:Unsnap" class="selflink"
+		    >#</a
+		    ></td
+		  ><td class="doc empty"
+		  >&nbsp;</td
+		  ></tr
+		><tr
+		><td colspan="2"
+		  ><details id="i:id:Unsnap:Message:1"
+		    ><summary class="hide-when-js-enabled"
+		      >Instance details</summary
+		      ><p
+		      >Defined in <a href="SnapLayout.html"
+			>SnapLayout</a
+			></p
+		      ></details
+		    ></td
+		  ></tr
+		></table
+	      ></details
+	    ></div
+	  ></div
+	><div class="top"
+	><p class="src"
+	  ><span class="keyword"
+	    >data</span
+	    > <a id="t:Unadjust" class="def"
+	    >Unadjust</a
+	    > <a href="src/SnapLayout.html#Unadjust" class="link"
+	    >Source</a
+	    > <a href="#t:Unadjust" class="selflink"
+	    >#</a
+	    ></p
+	  ><div class="subs constructors"
+	  ><p class="caption"
+	    >Constructors</p
+	    ><table
+	    ><tr
+	      ><td class="src"
+		><a id="v:Unadjust" class="def"
+		  >Unadjust</a
+		  > Window</td
+		><td class="doc empty"
+		>&nbsp;</td
+		></tr
+	      ></table
+	    ></div
+	  ><div class="subs instances"
+	  ><h4 class="instances details-toggle-control details-toggle" data-details-id="i:Unadjust"
+	    >Instances</h4
+	    ><details id="i:Unadjust" open="open"
+	    ><summary class="hide-when-js-enabled"
+	      >Instances details</summary
+	      ><table
+	      ><tr
+		><td class="src clearfix"
+		  ><span class="inst-left"
+		    ><span class="instance details-toggle-control details-toggle" data-details-id="i:id:Unadjust:Message:1"
+		      ></span
+		      > Message <a href="SnapLayout.html#t:Unadjust" title="SnapLayout"
+		      >Unadjust</a
+		      ></span
+		    > <a href="src/SnapLayout.html#line-221" class="link"
+		    >Source</a
+		    > <a href="#t:Unadjust" class="selflink"
+		    >#</a
+		    ></td
+		  ><td class="doc empty"
+		  >&nbsp;</td
+		  ></tr
+		><tr
+		><td colspan="2"
+		  ><details id="i:id:Unadjust:Message:1"
+		    ><summary class="hide-when-js-enabled"
+		      >Instance details</summary
+		      ><p
+		      >Defined in <a href="SnapLayout.html"
+			>SnapLayout</a
+			></p
+		      ></details
+		    ></td
+		  ></tr
+		></table
+	      ></details
+	    ></div
+	  ></div
+	></div
+      ></div
+    ><div id="footer"
+    ><p
+      >Produced by <a href="http://www.haskell.org/haddock/"
+	>Haddock</a
+	> version 2.23.0</p
+      ></div
+    ></body
+  ></html
+>
