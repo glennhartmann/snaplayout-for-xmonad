@@ -93,8 +93,8 @@
 	>Description</p
 	><div class="doc"
 	><p
-	  >LayoutClass that lets the user snap windows to particular edges or corners of the screen, at 1/2
- screen width and/or height.</p
+	  >LayoutClass that lets the user snap windows to particular edges or corners of the screen, at
+ various fractions of screen width and/or height.</p
 	  ></div
 	></div
       ><div id="synopsis"
@@ -272,8 +272,8 @@ main = xmonad def { layoutHook = myLayout }</pre
 	  ><p
 	  >For more detailed instructions on editing the layoutHook see:</p
 	  ><p
-	  ><a href="XMonad-Doc-Extending.html#Editing_the_layout_hook"
-	    >XMonad.Doc.Extending</a
+	  ><a href="https://hackage.haskell.org/package/xmonad-contrib-0.17.0/docs/XMonad-Doc-Extending.html#Editing_the_layout_hook"
+	    >https://hackage.haskell.org/package/xmonad-contrib-0.17.0/docs/XMonad-Doc-Extending.html#Editing_the_layout_hook</a
 	    ></p
 	  ><p
 	  >In the key-bindings, do something like:</p
@@ -309,9 +309,9 @@ main = xmonad def { layoutHook = myLayout }</pre
 	  ><p
 	  >For detailed instruction on editing the key binding see:</p
 	  ><p
-	  ><a href="XMonad-Doc-Extending.html#Editing_key_bindings"
-	    >XMonad.Doc.Extending</a
-	    >.</p
+	  ><a href="https://hackage.haskell.org/package/xmonad-contrib-0.17.0/docs/XMonad-Doc-Extending.html#Editing_key_bindings"
+	    >https://hackage.haskell.org/package/xmonad-contrib-0.17.0/docs/XMonad-Doc-Extending.html#Editing_key_bindings</a
+	    ></p
 	  ></div
 	><div class="top"
 	><p class="src"
@@ -383,7 +383,7 @@ main = xmonad def { layoutHook = myLayout }</pre
 		      > LayoutClass <a href="SnapLayout.html#t:SnapLayout" title="SnapLayout"
 		      >SnapLayout</a
 		      > Window</span
-		    > <a href="src/SnapLayout.html#line-233" class="link"
+		    > <a href="src/SnapLayout.html#line-273" class="link"
 		    >Source</a
 		    > <a href="#t:SnapLayout" class="selflink"
 		    >#</a
@@ -467,7 +467,7 @@ main = xmonad def { layoutHook = myLayout }</pre
 		      > Read (<a href="SnapLayout.html#t:SnapLayout" title="SnapLayout"
 		      >SnapLayout</a
 		      > a)</span
-		    > <a href="src/SnapLayout.html#line-228" class="link"
+		    > <a href="src/SnapLayout.html#line-268" class="link"
 		    >Source</a
 		    > <a href="#t:SnapLayout" class="selflink"
 		    >#</a
@@ -523,7 +523,7 @@ main = xmonad def { layoutHook = myLayout }</pre
 		      > Show (<a href="SnapLayout.html#t:SnapLayout" title="SnapLayout"
 		      >SnapLayout</a
 		      > a)</span
-		    > <a href="src/SnapLayout.html#line-228" class="link"
+		    > <a href="src/SnapLayout.html#line-268" class="link"
 		    >Source</a
 		    > <a href="#t:SnapLayout" class="selflink"
 		    >#</a
@@ -573,7 +573,7 @@ main = xmonad def { layoutHook = myLayout }</pre
 		      > Default (<a href="SnapLayout.html#t:SnapLayout" title="SnapLayout"
 		      >SnapLayout</a
 		      > a)</span
-		    > <a href="src/SnapLayout.html#line-230" class="link"
+		    > <a href="src/SnapLayout.html#line-270" class="link"
 		    >Source</a
 		    > <a href="#t:SnapLayout" class="selflink"
 		    >#</a
@@ -698,7 +698,55 @@ main = xmonad def { layoutHook = myLayout }</pre
 	      ><tr
 		><td class="src clearfix"
 		  ><span class="inst-left"
-		    ><span class="instance details-toggle-control details-toggle" data-details-id="i:id:SnapLoc:Read:1"
+		    ><span class="instance details-toggle-control details-toggle" data-details-id="i:id:SnapLoc:Eq:1"
+		      ></span
+		      > Eq <a href="SnapLayout.html#t:SnapLoc" title="SnapLayout"
+		      >SnapLoc</a
+		      ></span
+		    > <a href="src/SnapLayout.html#line-113" class="link"
+		    >Source</a
+		    > <a href="#t:SnapLoc" class="selflink"
+		    >#</a
+		    ></td
+		  ><td class="doc empty"
+		  >&nbsp;</td
+		  ></tr
+		><tr
+		><td colspan="2"
+		  ><details id="i:id:SnapLoc:Eq:1"
+		    ><summary class="hide-when-js-enabled"
+		      >Instance details</summary
+		      ><p
+		      >Defined in <a href="SnapLayout.html"
+			>SnapLayout</a
+			></p
+		      > <div class="subs methods"
+		      ><p class="caption"
+			>Methods</p
+			><p class="src"
+			><a href="#v:-61--61-"
+			  >(==)</a
+			  > :: <a href="SnapLayout.html#t:SnapLoc" title="SnapLayout"
+			  >SnapLoc</a
+			  > -&gt; <a href="SnapLayout.html#t:SnapLoc" title="SnapLayout"
+			  >SnapLoc</a
+			  > -&gt; Bool</p
+			><p class="src"
+			><a href="#v:-47--61-"
+			  >(/=)</a
+			  > :: <a href="SnapLayout.html#t:SnapLoc" title="SnapLayout"
+			  >SnapLoc</a
+			  > -&gt; <a href="SnapLayout.html#t:SnapLoc" title="SnapLayout"
+			  >SnapLoc</a
+			  > -&gt; Bool</p
+			></div
+		      ></details
+		    ></td
+		  ></tr
+		><tr
+		><td class="src clearfix"
+		  ><span class="inst-left"
+		    ><span class="instance details-toggle-control details-toggle" data-details-id="i:id:SnapLoc:Read:2"
 		      ></span
 		      > Read <a href="SnapLayout.html#t:SnapLoc" title="SnapLayout"
 		      >SnapLoc</a
@@ -713,7 +761,7 @@ main = xmonad def { layoutHook = myLayout }</pre
 		  ></tr
 		><tr
 		><td colspan="2"
-		  ><details id="i:id:SnapLoc:Read:1"
+		  ><details id="i:id:SnapLoc:Read:2"
 		    ><summary class="hide-when-js-enabled"
 		      >Instance details</summary
 		      ><p
@@ -754,7 +802,7 @@ main = xmonad def { layoutHook = myLayout }</pre
 		><tr
 		><td class="src clearfix"
 		  ><span class="inst-left"
-		    ><span class="instance details-toggle-control details-toggle" data-details-id="i:id:SnapLoc:Show:2"
+		    ><span class="instance details-toggle-control details-toggle" data-details-id="i:id:SnapLoc:Show:3"
 		      ></span
 		      > Show <a href="SnapLayout.html#t:SnapLoc" title="SnapLayout"
 		      >SnapLoc</a
@@ -769,7 +817,7 @@ main = xmonad def { layoutHook = myLayout }</pre
 		  ></tr
 		><tr
 		><td colspan="2"
-		  ><details id="i:id:SnapLoc:Show:2"
+		  ><details id="i:id:SnapLoc:Show:3"
 		    ><summary class="hide-when-js-enabled"
 		      >Instance details</summary
 		      ><p
@@ -847,7 +895,7 @@ main = xmonad def { layoutHook = myLayout }</pre
 		      > Message <a href="SnapLayout.html#t:Snap" title="SnapLayout"
 		      >Snap</a
 		      ></span
-		    > <a href="src/SnapLayout.html#line-180" class="link"
+		    > <a href="src/SnapLayout.html#line-220" class="link"
 		    >Source</a
 		    > <a href="#t:Snap" class="selflink"
 		    >#</a
@@ -913,7 +961,7 @@ main = xmonad def { layoutHook = myLayout }</pre
 		      > Message <a href="SnapLayout.html#t:FineAdjustmentMessage" title="SnapLayout"
 		      >FineAdjustmentMessage</a
 		      ></span
-		    > <a href="src/SnapLayout.html#line-211" class="link"
+		    > <a href="src/SnapLayout.html#line-251" class="link"
 		    >Source</a
 		    > <a href="#t:FineAdjustmentMessage" class="selflink"
 		    >#</a
@@ -1059,7 +1107,7 @@ main = xmonad def { layoutHook = myLayout }</pre
 		      > Message <a href="SnapLayout.html#t:Unsnap" title="SnapLayout"
 		      >Unsnap</a
 		      ></span
-		    > <a href="src/SnapLayout.html#line-216" class="link"
+		    > <a href="src/SnapLayout.html#line-256" class="link"
 		    >Source</a
 		    > <a href="#t:Unsnap" class="selflink"
 		    >#</a
@@ -1123,7 +1171,7 @@ main = xmonad def { layoutHook = myLayout }</pre
 		      > Message <a href="SnapLayout.html#t:Unadjust" title="SnapLayout"
 		      >Unadjust</a
 		      ></span
-		    > <a href="src/SnapLayout.html#line-221" class="link"
+		    > <a href="src/SnapLayout.html#line-261" class="link"
 		    >Source</a
 		    > <a href="#t:Unadjust" class="selflink"
 		    >#</a
