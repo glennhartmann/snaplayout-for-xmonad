@@ -1,0 +1,1447 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><link rel="stylesheet" type="text/css" href="style.css"
+     /><script type="text/javascript" src="highlight.js"
+    ></script
+    ></head
+  ><body
+  ><pre
+    ><span class="hs-comment"
+      >-- Copyright 2022 Google LLC</span
+      ><span
+      >
+</span
+      ><a name="line-2"
+      ></a
+      ><span class="hs-comment"
+      >--</span
+      ><span
+      >
+</span
+      ><a name="line-3"
+      ></a
+      ><span class="hs-comment"
+      >-- Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span
+      ><span
+      >
+</span
+      ><a name="line-4"
+      ></a
+      ><span class="hs-comment"
+      >-- you may not use this file except in compliance with the License.</span
+      ><span
+      >
+</span
+      ><a name="line-5"
+      ></a
+      ><span class="hs-comment"
+      >-- You may obtain a copy of the License at</span
+      ><span
+      >
+</span
+      ><a name="line-6"
+      ></a
+      ><span class="hs-comment"
+      >--</span
+      ><span
+      >
+</span
+      ><a name="line-7"
+      ></a
+      ><span class="hs-comment"
+      >--     https://www.apache.org/licenses/LICENSE-2.0</span
+      ><span
+      >
+</span
+      ><a name="line-8"
+      ></a
+      ><span class="hs-comment"
+      >--</span
+      ><span
+      >
+</span
+      ><a name="line-9"
+      ></a
+      ><span class="hs-comment"
+      >-- Unless required by applicable law or agreed to in writing, software</span
+      ><span
+      >
+</span
+      ><a name="line-10"
+      ></a
+      ><span class="hs-comment"
+      >-- distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span
+      ><span
+      >
+</span
+      ><a name="line-11"
+      ></a
+      ><span class="hs-comment"
+      >-- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span
+      ><span
+      >
+</span
+      ><a name="line-12"
+      ></a
+      ><span class="hs-comment"
+      >-- See the License for the specific language governing permissions and</span
+      ><span
+      >
+</span
+      ><a name="line-13"
+      ></a
+      ><span class="hs-comment"
+      >-- limitations under the License.</span
+      ><span
+      >
+</span
+      ><a name="line-14"
+      ></a
+      ><span
+      >
+</span
+      ><a name="line-15"
+      ></a
+      ><span class="hs-pragma"
+      >{-# LANGUAGE FlexibleInstances, MultiParamTypeClasses, InstanceSigs #-}</span
+      ><span
+      >
+</span
+      ><a name="line-16"
+      ></a
+      ><span
+      >
+</span
+      ><a name="line-17"
+      ></a
+      ><span class="hs-comment"
+      >---------------------------------------------------------------------------------------------------</span
+      ><span
+      >
+</span
+      ><a name="line-18"
+      ></a
+      ><span class="hs-comment"
+      >-- |</span
+      ><span
+      >
+</span
+      ><a name="line-19"
+      ></a
+      ><span class="hs-comment"
+      >-- Module      :  FocusOnTop</span
+      ><span
+      >
+</span
+      ><a name="line-20"
+      ></a
+      ><span class="hs-comment"
+      >-- Description :  `LayoutModifier` that pulls the focused `Window` to the front of the screen.</span
+      ><span
+      >
+</span
+      ><a name="line-21"
+      ></a
+      ><span class="hs-comment"
+      >-- Copyright   :  (c) Google LLC</span
+      ><span
+      >
+</span
+      ><a name="line-22"
+      ></a
+      ><span class="hs-comment"
+      >-- License     :  Apache-2.0 (see LICENSE)</span
+      ><span
+      >
+</span
+      ><a name="line-23"
+      ></a
+      ><span class="hs-comment"
+      >--</span
+      ><span
+      >
+</span
+      ><a name="line-24"
+      ></a
+      ><span class="hs-comment"
+      >-- Maintainer  :  hartmanng@google.com</span
+      ><span
+      >
+</span
+      ><a name="line-25"
+      ></a
+      ><span class="hs-comment"
+      >-- Stability   :  unstable</span
+      ><span
+      >
+</span
+      ><a name="line-26"
+      ></a
+      ><span class="hs-comment"
+      >-- Portability :  unportable</span
+      ><span
+      >
+</span
+      ><a name="line-27"
+      ></a
+      ><span class="hs-comment"
+      >--</span
+      ><span
+      >
+</span
+      ><a name="line-28"
+      ></a
+      ><span class="hs-comment"
+      >-- `LayoutModifier` that pulls the focused `Window` to the front of the screen, while preserving the</span
+      ><span
+      >
+</span
+      ><a name="line-29"
+      ></a
+      ><span class="hs-comment"
+      >-- relative order of the rest of the `Window`s.</span
+      ><span
+      >
+</span
+      ><a name="line-30"
+      ></a
+      ><span class="hs-comment"
+      >---------------------------------------------------------------------------------------------------</span
+      ><span
+      >
+</span
+      ><a name="line-31"
+      ></a
+      ><span
+      >
+</span
+      ><a name="line-32"
+      ></a
+      ><span class="hs-keyword"
+      >module</span
+      ><span
+      > </span
+      ><span class="hs-identifier"
+      >FocusOnTop</span
+      ><span
+      > </span
+      ><span class="hs-special"
+      >(</span
+      ><span
+      >
+</span
+      ><a name="line-33"
+      ></a
+      ><span
+      >    </span
+      ><span class="hs-comment"
+      >-- * Usage</span
+      ><span
+      >
+</span
+      ><a name="line-34"
+      ></a
+      ><span
+      >    </span
+      ><span class="hs-comment"
+      >-- $usage</span
+      ><span
+      >
+</span
+      ><a name="line-35"
+      ></a
+      ><span
+      >    </span
+      ><a href="FocusOnTop.html#focusOnTop"
+      ><span class="hs-identifier hs-var"
+	>focusOnTop</span
+	></a
+      ><span
+      >
+</span
+      ><a name="line-36"
+      ></a
+      ><span
+      >  </span
+      ><span class="hs-special"
+      >)</span
+      ><span
+      > </span
+      ><span class="hs-keyword"
+      >where</span
+      ><span
+      >
+</span
+      ><a name="line-37"
+      ></a
+      ><span
+      >
+</span
+      ><a name="line-38"
+      ></a
+      ><span class="hs-keyword"
+      >import</span
+      ><span
+      > </span
+      ><span class="hs-identifier"
+      >XMonad</span
+      ><span
+      >
+</span
+      ><a name="line-39"
+      ></a
+      ><span class="hs-keyword"
+      >import</span
+      ><span
+      > </span
+      ><span class="hs-identifier"
+      >XMonad.Layout.LayoutModifier</span
+      ><span
+      >
+</span
+      ><a name="line-40"
+      ></a
+      ><span
+      >
+</span
+      ><a name="line-41"
+      ></a
+      ><span class="hs-keyword"
+      >import</span
+      ><span
+      > </span
+      ><span class="hs-keyword"
+      >qualified</span
+      ><span
+      > </span
+      ><span class="hs-identifier"
+      >XMonad.StackSet</span
+      ><span
+      > </span
+      ><span class="hs-keyword"
+      >as</span
+      ><span
+      > </span
+      ><span class="hs-identifier"
+      >W</span
+      ><span
+      >
+</span
+      ><a name="line-42"
+      ></a
+      ><span
+      >
+</span
+      ><a name="line-43"
+      ></a
+      ><span class="hs-keyword"
+      >import</span
+      ><span
+      > </span
+      ><a href="FocusOnTopListOps.html"
+      ><span class="hs-identifier"
+	>FocusOnTopListOps</span
+	></a
+      ><span
+      >
+</span
+      ><a name="line-44"
+      ></a
+      ><span
+      >
+</span
+      ><a name="line-45"
+      ></a
+      ><span class="hs-comment"
+      >-- $usage</span
+      ><span
+      >
+</span
+      ><a name="line-46"
+      ></a
+      ><span class="hs-comment"
+      >-- You can use this module with the following in your @~\/.xmonad\/xmonad.hs@:</span
+      ><span
+      >
+</span
+      ><a name="line-47"
+      ></a
+      ><span class="hs-comment"
+      >--</span
+      ><span
+      >
+</span
+      ><a name="line-48"
+      ></a
+      ><span class="hs-comment"
+      >-- &gt; import FocusOnTop</span
+      ><span
+      >
+</span
+      ><a name="line-49"
+      ></a
+      ><span class="hs-comment"
+      >--</span
+      ><span
+      >
+</span
+      ><a name="line-50"
+      ></a
+      ><span class="hs-comment"
+      >-- Then edit your @layoutHook@ by adding focusOnTop:</span
+      ><span
+      >
+</span
+      ><a name="line-51"
+      ></a
+      ><span class="hs-comment"
+      >--</span
+      ><span
+      >
+</span
+      ><a name="line-52"
+      ></a
+      ><span class="hs-comment"
+      >-- &gt; myLayout = focusOnTop (Tall 1 (3/100) (1/2)) ||| Full ||| etc..</span
+      ><span
+      >
+</span
+      ><a name="line-53"
+      ></a
+      ><span class="hs-comment"
+      >-- &gt; main = xmonad def { layoutHook = myLayout }</span
+      ><span
+      >
+</span
+      ><a name="line-54"
+      ></a
+      ><span class="hs-comment"
+      >--</span
+      ><span
+      >
+</span
+      ><a name="line-55"
+      ></a
+      ><span class="hs-comment"
+      >-- For more detailed instructions on editing the layoutHook see:</span
+      ><span
+      >
+</span
+      ><a name="line-56"
+      ></a
+      ><span class="hs-comment"
+      >--</span
+      ><span
+      >
+</span
+      ><a name="line-57"
+      ></a
+      ><span class="hs-comment"
+      >-- https://hackage.haskell.org/package/xmonad-contrib-0.17.0/docs/XMonad-Doc-Extending.html#Editing_the_layout_hook</span
+      ><span
+      >
+</span
+      ><a name="line-58"
+      ></a
+      ><span class="hs-comment"
+      >--</span
+      ><span
+      >
+</span
+      ><a name="line-59"
+      ></a
+      ><span class="hs-comment"
+      >-- This module works especially nicely with &quot;SnapLayout&quot;:</span
+      ><span
+      >
+</span
+      ><a name="line-60"
+      ></a
+      ><span class="hs-comment"
+      >--</span
+      ><span
+      >
+</span
+      ><a name="line-61"
+      ></a
+      ><span class="hs-comment"
+      >-- &gt; import SnapLayout</span
+      ><span
+      >
+</span
+      ><a name="line-62"
+      ></a
+      ><span class="hs-comment"
+      >-- &gt; import FocusOnTop</span
+      ><span
+      >
+</span
+      ><a name="line-63"
+      ></a
+      ><span class="hs-comment"
+      >-- &gt;</span
+      ><span
+      >
+</span
+      ><a name="line-64"
+      ></a
+      ><span class="hs-comment"
+      >-- &gt; myLayout = focusOnTop snapLayout ||| Full ||| etc..</span
+      ><span
+      >
+</span
+      ><a name="line-65"
+      ></a
+      ><span class="hs-comment"
+      >-- &gt;   where</span
+      ><span
+      >
+</span
+      ><a name="line-66"
+      ></a
+      ><span class="hs-comment"
+      >-- &gt;     snapLayout :: SnapLayout a</span
+      ><span
+      >
+</span
+      ><a name="line-67"
+      ></a
+      ><span class="hs-comment"
+      >-- &gt;     snapLayout = def</span
+      ><span
+      >
+</span
+      ><a name="line-68"
+      ></a
+      ><span class="hs-comment"
+      >-- &gt; main = xmonad def { layoutHook = myLayout }</span
+      ><span
+      >
+</span
+      ><a name="line-69"
+      ></a
+      ><span
+      >
+</span
+      ><a name="line-70"
+      ></a
+      ><span class="hs-keyword"
+      >type</span
+      ><span
+      > </span
+      ><a name="MaybeFocusOnTop"
+      ><a href="FocusOnTop.html#MaybeFocusOnTop"
+	><span class="hs-identifier"
+	  >MaybeFocusOnTop</span
+	  ></a
+	></a
+      ><span
+      > </span
+      ><span class="hs-glyph"
+      >=</span
+      ><span
+      > </span
+      ><span class="hs-identifier hs-type"
+      >Maybe</span
+      ><span
+      > </span
+      ><span class="hs-special"
+      >(</span
+      ><a href="FocusOnTop.html#FocusOnTop"
+      ><span class="hs-identifier hs-type"
+	>FocusOnTop</span
+	></a
+      ><span
+      > </span
+      ><span class="hs-identifier hs-type"
+      >Window</span
+      ><span class="hs-special"
+      >)</span
+      ><span
+      >
+</span
+      ><a name="line-71"
+      ></a
+      ><span class="hs-keyword"
+      >type</span
+      ><span
+      > </span
+      ><a name="MaybeStack"
+      ><a href="FocusOnTop.html#MaybeStack"
+	><span class="hs-identifier"
+	  >MaybeStack</span
+	  ></a
+	></a
+      ><span
+      >      </span
+      ><span class="hs-glyph"
+      >=</span
+      ><span
+      > </span
+      ><span class="hs-identifier hs-type"
+      >Maybe</span
+      ><span
+      > </span
+      ><span class="hs-special"
+      >(</span
+      ><span class="hs-identifier hs-type"
+      >W.Stack</span
+      ><span
+      > </span
+      ><span class="hs-identifier hs-type"
+      >Window</span
+      ><span class="hs-special"
+      >)</span
+      ><span
+      >
+</span
+      ><a name="line-72"
+      ></a
+      ><span class="hs-keyword"
+      >type</span
+      ><span
+      > </span
+      ><a name="WinRect"
+      ><a href="FocusOnTop.html#WinRect"
+	><span class="hs-identifier"
+	  >WinRect</span
+	  ></a
+	></a
+      ><span
+      >         </span
+      ><span class="hs-glyph"
+      >=</span
+      ><span
+      > </span
+      ><span class="hs-special"
+      >(</span
+      ><span class="hs-identifier hs-type"
+      >Window</span
+      ><span class="hs-special"
+      >,</span
+      ><span
+      > </span
+      ><span class="hs-identifier hs-type"
+      >Rectangle</span
+      ><span class="hs-special"
+      >)</span
+      ><span
+      >
+</span
+      ><a name="line-73"
+      ></a
+      ><span
+      >
+</span
+      ><a name="line-74"
+      ></a
+      ><span class="hs-comment"
+      >-- | FocusOnTop is a `LayoutModifier` that pulls the focused `Window` to the front of the screen,</span
+      ><span
+      >
+</span
+      ><a name="line-75"
+      ></a
+      ><span class="hs-comment"
+      >-- while preserving the relative order of the rest of the `Window`s.</span
+      ><span
+      >
+</span
+      ><a name="line-76"
+      ></a
+      ><span class="hs-keyword"
+      >data</span
+      ><span
+      > </span
+      ><a name="FocusOnTop"
+      ><a href="FocusOnTop.html#FocusOnTop"
+	><span class="hs-identifier"
+	  >FocusOnTop</span
+	  ></a
+	></a
+      ><span
+      > </span
+      ><a name="local-6989586621679024964"
+      ><a href="#local-6989586621679024964"
+	><span class="hs-identifier"
+	  >a</span
+	  ></a
+	></a
+      ><span
+      > </span
+      ><span class="hs-glyph"
+      >=</span
+      ><span
+      > </span
+      ><a name="FocusOnTop"
+      ><a href="FocusOnTop.html#FocusOnTop"
+	><span class="hs-identifier"
+	  >FocusOnTop</span
+	  ></a
+	></a
+      ><span
+      > </span
+      ><span class="hs-special"
+      >[</span
+      ><a href="#local-6989586621679024964"
+      ><span class="hs-identifier hs-type"
+	>a</span
+	></a
+      ><span class="hs-special"
+      >]</span
+      ><span
+      > </span
+      ><span class="hs-keyword"
+      >deriving</span
+      ><span
+      > </span
+      ><span class="hs-special"
+      >(</span
+      ><span class="hs-identifier hs-type"
+      >Read</span
+      ><span class="hs-special"
+      >,</span
+      ><span
+      > </span
+      ><span class="hs-identifier hs-type"
+      >Show</span
+      ><span class="hs-special"
+      >)</span
+      ><span
+      >
+</span
+      ><a name="line-77"
+      ></a
+      ><span
+      >
+</span
+      ><a name="line-78"
+      ></a
+      ><span class="hs-keyword"
+      >instance</span
+      ><span
+      > </span
+      ><span class="hs-identifier hs-type"
+      >LayoutModifier</span
+      ><span
+      > </span
+      ><a href="FocusOnTop.html#FocusOnTop"
+      ><span class="hs-identifier hs-type"
+	>FocusOnTop</span
+	></a
+      ><span
+      > </span
+      ><span class="hs-identifier hs-type"
+      >Window</span
+      ><span
+      > </span
+      ><span class="hs-keyword"
+      >where</span
+      ><span
+      >
+</span
+      ><a name="line-79"
+      ></a
+      ><span
+      >    </span
+      ><span class="hs-comment"
+      >-- | pureModifier reorders the `WinRect`s according to their previous order, to maintain</span
+      ><span
+      >
+</span
+      ><a name="line-80"
+      ></a
+      ><span
+      >    </span
+      ><span class="hs-comment"
+      >-- consistency for the user, and then moves the focused `WinRect` to the front so that it</span
+      ><span
+      >
+</span
+      ><a name="line-81"
+      ></a
+      ><span
+      >    </span
+      ><span class="hs-comment"
+      >-- appears on top of any other window.</span
+      ><span
+      >
+</span
+      ><a name="line-82"
+      ></a
+      ><span
+      >    </span
+      ><span class="hs-identifier"
+      >pureModifier</span
+      ><span
+      > </span
+      ><span class="hs-glyph"
+      >::</span
+      ><span
+      > </span
+      ><a href="FocusOnTop.html#FocusOnTop"
+      ><span class="hs-identifier hs-type"
+	>FocusOnTop</span
+	></a
+      ><span
+      > </span
+      ><span class="hs-identifier hs-type"
+      >Window</span
+      ><span
+      > </span
+      ><span class="hs-glyph"
+      >-&gt;</span
+      ><span
+      > </span
+      ><span class="hs-identifier hs-type"
+      >Rectangle</span
+      ><span
+      > </span
+      ><span class="hs-glyph"
+      >-&gt;</span
+      ><span
+      > </span
+      ><a href="FocusOnTop.html#MaybeStack"
+      ><span class="hs-identifier hs-type"
+	>MaybeStack</span
+	></a
+      ><span
+      > </span
+      ><span class="hs-glyph"
+      >-&gt;</span
+      ><span
+      > </span
+      ><span class="hs-special"
+      >[</span
+      ><a href="FocusOnTop.html#WinRect"
+      ><span class="hs-identifier hs-type"
+	>WinRect</span
+	></a
+      ><span class="hs-special"
+      >]</span
+      ><span
+      > </span
+      ><span class="hs-glyph"
+      >-&gt;</span
+      ><span
+      >
+</span
+      ><a name="line-83"
+      ></a
+      ><span
+      >        </span
+      ><span class="hs-special"
+      >(</span
+      ><span class="hs-special"
+      >[</span
+      ><a href="FocusOnTop.html#WinRect"
+      ><span class="hs-identifier hs-type"
+	>WinRect</span
+	></a
+      ><span class="hs-special"
+      >]</span
+      ><span class="hs-special"
+      >,</span
+      ><span
+      > </span
+      ><a href="FocusOnTop.html#MaybeFocusOnTop"
+      ><span class="hs-identifier hs-type"
+	>MaybeFocusOnTop</span
+	></a
+      ><span class="hs-special"
+      >)</span
+      ><span
+      >
+</span
+      ><a name="line-84"
+      ></a
+      ><span
+      >    </span
+      ><a name="local-8214565720323797556"
+      ><span class="hs-identifier"
+	>pureModifier</span
+	></a
+      ><span
+      > </span
+      ><span class="hs-special"
+      >(</span
+      ><a href="FocusOnTop.html#FocusOnTop"
+      ><span class="hs-identifier hs-var"
+	>FocusOnTop</span
+	></a
+      ><span
+      > </span
+      ><a name="local-6989586621679029115"
+      ><a href="#local-6989586621679029115"
+	><span class="hs-identifier"
+	  >o</span
+	  ></a
+	></a
+      ><span class="hs-special"
+      >)</span
+      ><span
+      > </span
+      ><span class="hs-identifier"
+      >_</span
+      ><span
+      > </span
+      ><a name="local-6989586621679029116"
+      ><a href="#local-6989586621679029116"
+	><span class="hs-identifier"
+	  >ms</span
+	  ></a
+	></a
+      ><span
+      > </span
+      ><a name="local-6989586621679029117"
+      ><a href="#local-6989586621679029117"
+	><span class="hs-identifier"
+	  >wr</span
+	  ></a
+	></a
+      ><span
+      > </span
+      ><span class="hs-glyph"
+      >=</span
+      ><span
+      > </span
+      ><a href="FocusOnTop.html#combine"
+      ><span class="hs-identifier hs-var"
+	>combine</span
+	></a
+      ><span
+      > </span
+      ><span class="hs-operator hs-var"
+      >$</span
+      ><span
+      > </span
+      ><a href="FocusOnTop.html#bringFocusToFront"
+      ><span class="hs-identifier hs-var"
+	>bringFocusToFront</span
+	></a
+      ><span
+      > </span
+      ><a href="#local-6989586621679029116"
+      ><span class="hs-identifier hs-var"
+	>ms</span
+	></a
+      ><span
+      > </span
+      ><span class="hs-operator hs-var"
+      >$</span
+      ><span
+      > </span
+      ><a href="FocusOnTopListOps.html#reorder"
+      ><span class="hs-identifier hs-var"
+	>reorder</span
+	></a
+      ><span
+      > </span
+      ><a href="#local-6989586621679029117"
+      ><span class="hs-identifier hs-var"
+	>wr</span
+	></a
+      ><span
+      > </span
+      ><a href="#local-6989586621679029115"
+      ><span class="hs-identifier hs-var"
+	>o</span
+	></a
+      ><span
+      >
+</span
+      ><a name="line-85"
+      ></a
+      ><span
+      >
+</span
+      ><a name="line-86"
+      ></a
+      ><span class="hs-comment"
+      >-- | bringFocusToFront moves the focused window to the beginning of the list (and therefore to the</span
+      ><span
+      >
+</span
+      ><a name="line-87"
+      ></a
+      ><span class="hs-comment"
+      >-- front of the screen).</span
+      ><span
+      >
+</span
+      ><a name="line-88"
+      ></a
+      ><span class="hs-identifier"
+      >bringFocusToFront</span
+      ><span
+      > </span
+      ><span class="hs-glyph"
+      >::</span
+      ><span
+      > </span
+      ><a href="FocusOnTop.html#MaybeStack"
+      ><span class="hs-identifier hs-type"
+	>MaybeStack</span
+	></a
+      ><span
+      > </span
+      ><span class="hs-glyph"
+      >-&gt;</span
+      ><span
+      > </span
+      ><span class="hs-special"
+      >[</span
+      ><a href="FocusOnTop.html#WinRect"
+      ><span class="hs-identifier hs-type"
+	>WinRect</span
+	></a
+      ><span class="hs-special"
+      >]</span
+      ><span
+      > </span
+      ><span class="hs-glyph"
+      >-&gt;</span
+      ><span
+      > </span
+      ><span class="hs-special"
+      >[</span
+      ><a href="FocusOnTop.html#WinRect"
+      ><span class="hs-identifier hs-type"
+	>WinRect</span
+	></a
+      ><span class="hs-special"
+      >]</span
+      ><span
+      >
+</span
+      ><a name="line-89"
+      ></a
+      ><a name="bringFocusToFront"
+      ><a href="FocusOnTop.html#bringFocusToFront"
+	><span class="hs-identifier"
+	  >bringFocusToFront</span
+	  ></a
+	></a
+      ><span
+      > </span
+      ><span class="hs-identifier hs-var"
+      >Nothing</span
+      ><span
+      >                </span
+      ><a name="local-6989586621679029119"
+      ><a href="#local-6989586621679029119"
+	><span class="hs-identifier"
+	  >wr</span
+	  ></a
+	></a
+      ><span
+      > </span
+      ><span class="hs-glyph"
+      >=</span
+      ><span
+      > </span
+      ><a href="#local-6989586621679029119"
+      ><span class="hs-identifier hs-var"
+	>wr</span
+	></a
+      ><span
+      >
+</span
+      ><a name="line-90"
+      ></a
+      ><span class="hs-identifier"
+      >bringFocusToFront</span
+      ><span
+      > </span
+      ><span class="hs-special"
+      >(</span
+      ><span class="hs-identifier hs-var"
+      >Just</span
+      ><span
+      > </span
+      ><span class="hs-special"
+      >(</span
+      ><span class="hs-identifier hs-var"
+      >W.Stack</span
+      ><span
+      > </span
+      ><a name="local-6989586621679029120"
+      ><a href="#local-6989586621679029120"
+	><span class="hs-identifier"
+	  >f</span
+	  ></a
+	></a
+      ><span
+      > </span
+      ><span class="hs-identifier"
+      >_</span
+      ><span
+      > </span
+      ><span class="hs-identifier"
+      >_</span
+      ><span class="hs-special"
+      >)</span
+      ><span class="hs-special"
+      >)</span
+      ><span
+      > </span
+      ><a name="local-6989586621679029121"
+      ><a href="#local-6989586621679029121"
+	><span class="hs-identifier"
+	  >wr</span
+	  ></a
+	></a
+      ><span
+      > </span
+      ><span class="hs-glyph"
+      >=</span
+      ><span
+      > </span
+      ><a href="FocusOnTopListOps.html#maybeCons"
+      ><span class="hs-identifier hs-var"
+	>maybeCons</span
+	></a
+      ><span
+      > </span
+      ><span class="hs-operator hs-var"
+      >$</span
+      ><span
+      > </span
+      ><a href="FocusOnTopListOps.html#removeAssoc"
+      ><span class="hs-identifier hs-var"
+	>removeAssoc</span
+	></a
+      ><span
+      > </span
+      ><a href="#local-6989586621679029121"
+      ><span class="hs-identifier hs-var"
+	>wr</span
+	></a
+      ><span
+      > </span
+      ><a href="#local-6989586621679029120"
+      ><span class="hs-identifier hs-var"
+	>f</span
+	></a
+      ><span
+      >
+</span
+      ><a name="line-91"
+      ></a
+      ><span
+      >
+</span
+      ><a name="line-92"
+      ></a
+      ><span class="hs-comment"
+      >-- | combine bundles the `WinRect`s along with `FocusOnTop`'s new state to return to @XMonad@.</span
+      ><span
+      >
+</span
+      ><a name="line-93"
+      ></a
+      ><span class="hs-identifier"
+      >combine</span
+      ><span
+      > </span
+      ><span class="hs-glyph"
+      >::</span
+      ><span
+      > </span
+      ><span class="hs-special"
+      >[</span
+      ><a href="FocusOnTop.html#WinRect"
+      ><span class="hs-identifier hs-type"
+	>WinRect</span
+	></a
+      ><span class="hs-special"
+      >]</span
+      ><span
+      > </span
+      ><span class="hs-glyph"
+      >-&gt;</span
+      ><span
+      > </span
+      ><span class="hs-special"
+      >(</span
+      ><span class="hs-special"
+      >[</span
+      ><a href="FocusOnTop.html#WinRect"
+      ><span class="hs-identifier hs-type"
+	>WinRect</span
+	></a
+      ><span class="hs-special"
+      >]</span
+      ><span class="hs-special"
+      >,</span
+      ><span
+      > </span
+      ><a href="FocusOnTop.html#MaybeFocusOnTop"
+      ><span class="hs-identifier hs-type"
+	>MaybeFocusOnTop</span
+	></a
+      ><span class="hs-special"
+      >)</span
+      ><span
+      >
+</span
+      ><a name="line-94"
+      ></a
+      ><a name="combine"
+      ><a href="FocusOnTop.html#combine"
+	><span class="hs-identifier"
+	  >combine</span
+	  ></a
+	></a
+      ><span
+      > </span
+      ><a name="local-6989586621679029122"
+      ><a href="#local-6989586621679029122"
+	><span class="hs-identifier"
+	  >w</span
+	  ></a
+	></a
+      ><span
+      > </span
+      ><span class="hs-glyph"
+      >=</span
+      ><span
+      > </span
+      ><span class="hs-special"
+      >(</span
+      ><a href="#local-6989586621679029122"
+      ><span class="hs-identifier hs-var"
+	>w</span
+	></a
+      ><span class="hs-special"
+      >,</span
+      ><span
+      > </span
+      ><span class="hs-identifier hs-var"
+      >Just</span
+      ><span
+      > </span
+      ><span class="hs-special"
+      >(</span
+      ><a href="FocusOnTop.html#FocusOnTop"
+      ><span class="hs-identifier hs-var"
+	>FocusOnTop</span
+	></a
+      ><span
+      > </span
+      ><span class="hs-operator hs-var"
+      >$</span
+      ><span
+      > </span
+      ><a href="FocusOnTop.html#windowsOnly"
+      ><span class="hs-identifier hs-var"
+	>windowsOnly</span
+	></a
+      ><span
+      > </span
+      ><a href="#local-6989586621679029122"
+      ><span class="hs-identifier hs-var"
+	>w</span
+	></a
+      ><span class="hs-special"
+      >)</span
+      ><span class="hs-special"
+      >)</span
+      ><span
+      >
+</span
+      ><a name="line-95"
+      ></a
+      ><span
+      >
+</span
+      ><a name="line-96"
+      ></a
+      ><span class="hs-comment"
+      >-- | windowsOnly extracts a list of `Window`s from the list of `WinRect`s</span
+      ><span
+      >
+</span
+      ><a name="line-97"
+      ></a
+      ><span class="hs-identifier"
+      >windowsOnly</span
+      ><span
+      > </span
+      ><span class="hs-glyph"
+      >::</span
+      ><span
+      > </span
+      ><span class="hs-special"
+      >[</span
+      ><a href="FocusOnTop.html#WinRect"
+      ><span class="hs-identifier hs-type"
+	>WinRect</span
+	></a
+      ><span class="hs-special"
+      >]</span
+      ><span
+      > </span
+      ><span class="hs-glyph"
+      >-&gt;</span
+      ><span
+      > </span
+      ><span class="hs-special"
+      >[</span
+      ><span class="hs-identifier hs-type"
+      >Window</span
+      ><span class="hs-special"
+      >]</span
+      ><span
+      >
+</span
+      ><a name="line-98"
+      ></a
+      ><a name="windowsOnly"
+      ><a href="FocusOnTop.html#windowsOnly"
+	><span class="hs-identifier"
+	  >windowsOnly</span
+	  ></a
+	></a
+      ><span
+      > </span
+      ><a name="local-6989586621679029123"
+      ><a href="#local-6989586621679029123"
+	><span class="hs-identifier"
+	  >w</span
+	  ></a
+	></a
+      ><span
+      > </span
+      ><span class="hs-glyph"
+      >=</span
+      ><span
+      > </span
+      ><span class="hs-identifier hs-var"
+      >map</span
+      ><span
+      > </span
+      ><span class="hs-identifier hs-var"
+      >fst</span
+      ><span
+      > </span
+      ><a href="#local-6989586621679029123"
+      ><span class="hs-identifier hs-var"
+	>w</span
+	></a
+      ><span
+      >
+</span
+      ><a name="line-99"
+      ></a
+      ><span
+      >
+</span
+      ><a name="line-100"
+      ></a
+      ><span class="hs-comment"
+      >-- | focusOnTop applies the `FocusOnTop` `LayoutModifier` on the provided `Layout`, to pull the</span
+      ><span
+      >
+</span
+      ><a name="line-101"
+      ></a
+      ><span class="hs-comment"
+      >-- focused `Window` to the front of the screen, while preserving the relative order of the rest of</span
+      ><span
+      >
+</span
+      ><a name="line-102"
+      ></a
+      ><span class="hs-comment"
+      >-- the `Window`s.</span
+      ><span
+      >
+</span
+      ><a name="line-103"
+      ></a
+      ><span class="hs-identifier"
+      >focusOnTop</span
+      ><span
+      > </span
+      ><span class="hs-glyph"
+      >::</span
+      ><span
+      > </span
+      ><a href="#local-6989586621679029118"
+      ><span class="hs-identifier hs-type"
+	>l</span
+	></a
+      ><span
+      > </span
+      ><span class="hs-identifier hs-type"
+      >Window</span
+      ><span
+      > </span
+      ><span class="hs-glyph"
+      >-&gt;</span
+      ><span
+      > </span
+      ><span class="hs-identifier hs-type"
+      >ModifiedLayout</span
+      ><span
+      > </span
+      ><a href="FocusOnTop.html#FocusOnTop"
+      ><span class="hs-identifier hs-type"
+	>FocusOnTop</span
+	></a
+      ><span
+      > </span
+      ><a href="#local-6989586621679029118"
+      ><span class="hs-identifier hs-type"
+	>l</span
+	></a
+      ><span
+      > </span
+      ><span class="hs-identifier hs-type"
+      >Window</span
+      ><span
+      >
+</span
+      ><a name="line-104"
+      ></a
+      ><a name="focusOnTop"
+      ><a href="FocusOnTop.html#focusOnTop"
+	><span class="hs-identifier"
+	  >focusOnTop</span
+	  ></a
+	></a
+      ><span
+      > </span
+      ><span class="hs-glyph"
+      >=</span
+      ><span
+      > </span
+      ><span class="hs-identifier hs-var"
+      >ModifiedLayout</span
+      ><span
+      > </span
+      ><span class="hs-special"
+      >(</span
+      ><a href="FocusOnTop.html#FocusOnTop"
+      ><span class="hs-identifier hs-var"
+	>FocusOnTop</span
+	></a
+      ><span
+      > </span
+      ><span class="hs-special"
+      >[</span
+      ><span class="hs-special"
+      >]</span
+      ><span class="hs-special"
+      >)</span
+      ><span
+      >
+</span
+      ><a name="line-105"
+      ></a
+      ></pre
+    ></body
+  ></html
+>

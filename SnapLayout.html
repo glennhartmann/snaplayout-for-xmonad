@@ -2,23 +2,18 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 ><head
   ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
-     /><meta name="viewport" content="width=device-width, initial-scale=1"
      /><title
     >SnapLayout</title
-    ><link href="linuwial.css" rel="stylesheet" type="text/css" title="Linuwial"
+    ><link href="ocean.css" rel="stylesheet" type="text/css" title="Ocean"
      /><link rel="stylesheet" type="text/css" href="quick-jump.css"
      /><script src="haddock-bundle.min.js" async="async" type="text/javascript"
     ></script
-    ><script type="text/x-mathjax-config"
-    >MathJax.Hub.Config({ tex2jax: { processClass: "mathjax", ignoreClass: ".*" } });</script
-    ><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"
+    ><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"
     ></script
     ></head
   ><body
   ><div id="package-header"
-    ><span class="caption empty"
-      >&nbsp;</span
-      ><ul class="links" id="page-menu"
+    ><ul class="links" id="page-menu"
       ><li
 	><a href="src/SnapLayout.html"
 	  >Source</a
@@ -32,6 +27,8 @@
 	  >Index</a
 	  ></li
 	></ul
+      ><p class="caption empty"
+      >&nbsp;</p
       ></div
     ><div id="content"
     ><div id="module-header"
@@ -77,16 +74,14 @@
 	>SnapLayout</p
 	></div
       ><div id="table-of-contents"
-      ><div id="contents-list"
-	><p class="caption" onclick="window.scrollTo(0,0)"
-	  >Contents</p
-	  ><ul
-	  ><li
-	    ><a href="#g:1"
-	      >Usage</a
-	      ></li
-	    ></ul
-	  ></div
+      ><p class="caption"
+	>Contents</p
+	><ul
+	><li
+	  ><a href="#g:1"
+	    >Usage</a
+	    ></li
+	  ></ul
 	></div
       ><div id="description"
       ><p class="caption"
@@ -252,13 +247,14 @@
 	    >~/.xmonad/xmonad.hs</code
 	    >:</p
 	  ><pre
-	  >import SnapLayout</pre
+	  >import SnapLayout
+import FocusOnTop</pre
 	  ><p
 	  >Then edit your <code
 	    >layoutHook</code
 	    > by adding the SnapLayout:</p
 	  ><pre
-	  >myLayout = snapLayout ||| Full ||| etc..
+	  >myLayout = focusOnTop snapLayout ||| Full ||| etc..
   where
     snapLayout :: SnapLayout a
     snapLayout = def
@@ -266,7 +262,7 @@ main = xmonad def { layoutHook = myLayout }</pre
 	  ><p
 	  >Or, to customize the fine adjustment increment:</p
 	  ><pre
-	  >myLayout = snapLayout ||| Full ||| etc..
+	  >myLayout = focusOnTop snapLayout ||| Full ||| etc..
   where
     snapLayout :: SnapLayout a
     snapLayout = def { adjustmentDelta = 3/100 }
@@ -382,11 +378,9 @@ main = xmonad def { layoutHook = myLayout }</pre
 	      ></table
 	    ></div
 	  ><div class="subs instances"
-	  ><h4 class="instances details-toggle-control details-toggle" data-details-id="i:SnapLayout"
-	    >Instances</h4
-	    ><details id="i:SnapLayout" open="open"
-	    ><summary class="hide-when-js-enabled"
-	      >Instances details</summary
+	  ><details id="i:SnapLayout" open="open"
+	    ><summary
+	      >Instances</summary
 	      ><table
 	      ><tr
 		><td class="src clearfix"
@@ -396,7 +390,7 @@ main = xmonad def { layoutHook = myLayout }</pre
 		      > LayoutClass <a href="SnapLayout.html#t:SnapLayout" title="SnapLayout"
 		      >SnapLayout</a
 		      > Window</span
-		    > <a href="src/SnapLayout.html#line-286" class="link"
+		    > <a href="src/SnapLayout.html#line-287" class="link"
 		    >Source</a
 		    > <a href="#t:SnapLayout" class="selflink"
 		    >#</a
@@ -480,7 +474,7 @@ main = xmonad def { layoutHook = myLayout }</pre
 		      > Read (<a href="SnapLayout.html#t:SnapLayout" title="SnapLayout"
 		      >SnapLayout</a
 		      > a)</span
-		    > <a href="src/SnapLayout.html#line-281" class="link"
+		    > <a href="src/SnapLayout.html#line-282" class="link"
 		    >Source</a
 		    > <a href="#t:SnapLayout" class="selflink"
 		    >#</a
@@ -536,7 +530,7 @@ main = xmonad def { layoutHook = myLayout }</pre
 		      > Show (<a href="SnapLayout.html#t:SnapLayout" title="SnapLayout"
 		      >SnapLayout</a
 		      > a)</span
-		    > <a href="src/SnapLayout.html#line-281" class="link"
+		    > <a href="src/SnapLayout.html#line-282" class="link"
 		    >Source</a
 		    > <a href="#t:SnapLayout" class="selflink"
 		    >#</a
@@ -586,7 +580,7 @@ main = xmonad def { layoutHook = myLayout }</pre
 		      > Default (<a href="SnapLayout.html#t:SnapLayout" title="SnapLayout"
 		      >SnapLayout</a
 		      > a)</span
-		    > <a href="src/SnapLayout.html#line-283" class="link"
+		    > <a href="src/SnapLayout.html#line-284" class="link"
 		    >Source</a
 		    > <a href="#t:SnapLayout" class="selflink"
 		    >#</a
@@ -706,11 +700,9 @@ main = xmonad def { layoutHook = myLayout }</pre
 	      ></table
 	    ></div
 	  ><div class="subs instances"
-	  ><h4 class="instances details-toggle-control details-toggle" data-details-id="i:SnapLoc"
-	    >Instances</h4
-	    ><details id="i:SnapLoc" open="open"
-	    ><summary class="hide-when-js-enabled"
-	      >Instances details</summary
+	  ><details id="i:SnapLoc" open="open"
+	    ><summary
+	      >Instances</summary
 	      ><table
 	      ><tr
 		><td class="src clearfix"
@@ -720,7 +712,7 @@ main = xmonad def { layoutHook = myLayout }</pre
 		      > Eq <a href="SnapLayout.html#t:SnapLoc" title="SnapLayout"
 		      >SnapLoc</a
 		      ></span
-		    > <a href="src/SnapLayout.html#line-113" class="link"
+		    > <a href="src/SnapLayout.html#line-114" class="link"
 		    >Source</a
 		    > <a href="#t:SnapLoc" class="selflink"
 		    >#</a
@@ -768,7 +760,7 @@ main = xmonad def { layoutHook = myLayout }</pre
 		      > Read <a href="SnapLayout.html#t:SnapLoc" title="SnapLayout"
 		      >SnapLoc</a
 		      ></span
-		    > <a href="src/SnapLayout.html#line-113" class="link"
+		    > <a href="src/SnapLayout.html#line-114" class="link"
 		    >Source</a
 		    > <a href="#t:SnapLoc" class="selflink"
 		    >#</a
@@ -824,7 +816,7 @@ main = xmonad def { layoutHook = myLayout }</pre
 		      > Show <a href="SnapLayout.html#t:SnapLoc" title="SnapLayout"
 		      >SnapLoc</a
 		      ></span
-		    > <a href="src/SnapLayout.html#line-113" class="link"
+		    > <a href="src/SnapLayout.html#line-114" class="link"
 		    >Source</a
 		    > <a href="#t:SnapLoc" class="selflink"
 		    >#</a
@@ -911,11 +903,9 @@ main = xmonad def { layoutHook = myLayout }</pre
 	      ></table
 	    ></div
 	  ><div class="subs instances"
-	  ><h4 class="instances details-toggle-control details-toggle" data-details-id="i:Snap"
-	    >Instances</h4
-	    ><details id="i:Snap" open="open"
-	    ><summary class="hide-when-js-enabled"
-	      >Instances details</summary
+	  ><details id="i:Snap" open="open"
+	    ><summary
+	      >Instances</summary
 	      ><table
 	      ><tr
 		><td class="src clearfix"
@@ -925,7 +915,7 @@ main = xmonad def { layoutHook = myLayout }</pre
 		      > Message <a href="SnapLayout.html#t:Snap" title="SnapLayout"
 		      >Snap</a
 		      ></span
-		    > <a href="src/SnapLayout.html#line-229" class="link"
+		    > <a href="src/SnapLayout.html#line-230" class="link"
 		    >Source</a
 		    > <a href="#t:Snap" class="selflink"
 		    >#</a
@@ -986,11 +976,9 @@ main = xmonad def { layoutHook = myLayout }</pre
 	      ></table
 	    ></div
 	  ><div class="subs instances"
-	  ><h4 class="instances details-toggle-control details-toggle" data-details-id="i:FineAdjustmentMessage"
-	    >Instances</h4
-	    ><details id="i:FineAdjustmentMessage" open="open"
-	    ><summary class="hide-when-js-enabled"
-	      >Instances details</summary
+	  ><details id="i:FineAdjustmentMessage" open="open"
+	    ><summary
+	      >Instances</summary
 	      ><table
 	      ><tr
 		><td class="src clearfix"
@@ -1000,7 +988,7 @@ main = xmonad def { layoutHook = myLayout }</pre
 		      > Message <a href="SnapLayout.html#t:FineAdjustmentMessage" title="SnapLayout"
 		      >FineAdjustmentMessage</a
 		      ></span
-		    > <a href="src/SnapLayout.html#line-260" class="link"
+		    > <a href="src/SnapLayout.html#line-261" class="link"
 		    >Source</a
 		    > <a href="#t:FineAdjustmentMessage" class="selflink"
 		    >#</a
@@ -1145,11 +1133,9 @@ main = xmonad def { layoutHook = myLayout }</pre
 	      ></table
 	    ></div
 	  ><div class="subs instances"
-	  ><h4 class="instances details-toggle-control details-toggle" data-details-id="i:Unsnap"
-	    >Instances</h4
-	    ><details id="i:Unsnap" open="open"
-	    ><summary class="hide-when-js-enabled"
-	      >Instances details</summary
+	  ><details id="i:Unsnap" open="open"
+	    ><summary
+	      >Instances</summary
 	      ><table
 	      ><tr
 		><td class="src clearfix"
@@ -1159,7 +1145,7 @@ main = xmonad def { layoutHook = myLayout }</pre
 		      > Message <a href="SnapLayout.html#t:Unsnap" title="SnapLayout"
 		      >Unsnap</a
 		      ></span
-		    > <a href="src/SnapLayout.html#line-265" class="link"
+		    > <a href="src/SnapLayout.html#line-266" class="link"
 		    >Source</a
 		    > <a href="#t:Unsnap" class="selflink"
 		    >#</a
@@ -1218,11 +1204,9 @@ main = xmonad def { layoutHook = myLayout }</pre
 	      ></table
 	    ></div
 	  ><div class="subs instances"
-	  ><h4 class="instances details-toggle-control details-toggle" data-details-id="i:Unadjust"
-	    >Instances</h4
-	    ><details id="i:Unadjust" open="open"
-	    ><summary class="hide-when-js-enabled"
-	      >Instances details</summary
+	  ><details id="i:Unadjust" open="open"
+	    ><summary
+	      >Instances</summary
 	      ><table
 	      ><tr
 		><td class="src clearfix"
@@ -1232,7 +1216,7 @@ main = xmonad def { layoutHook = myLayout }</pre
 		      > Message <a href="SnapLayout.html#t:Unadjust" title="SnapLayout"
 		      >Unadjust</a
 		      ></span
-		    > <a href="src/SnapLayout.html#line-270" class="link"
+		    > <a href="src/SnapLayout.html#line-271" class="link"
 		    >Source</a
 		    > <a href="#t:Unadjust" class="selflink"
 		    >#</a
@@ -1262,7 +1246,7 @@ main = xmonad def { layoutHook = myLayout }</pre
     ><p
       >Produced by <a href="http://www.haskell.org/haddock/"
 	>Haddock</a
-	> version 2.23.0</p
+	> version 2.22.0</p
       ></div
     ></body
   ></html

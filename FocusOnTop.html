@@ -1,0 +1,188 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><title
+    >FocusOnTop</title
+    ><link href="ocean.css" rel="stylesheet" type="text/css" title="Ocean"
+     /><link rel="stylesheet" type="text/css" href="quick-jump.css"
+     /><script src="haddock-bundle.min.js" async="async" type="text/javascript"
+    ></script
+    ><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"
+    ></script
+    ></head
+  ><body
+  ><div id="package-header"
+    ><ul class="links" id="page-menu"
+      ><li
+	><a href="src/FocusOnTop.html"
+	  >Source</a
+	  ></li
+	><li
+	><a href="index.html"
+	  >Contents</a
+	  ></li
+	><li
+	><a href="doc-index.html"
+	  >Index</a
+	  ></li
+	></ul
+      ><p class="caption empty"
+      >&nbsp;</p
+      ></div
+    ><div id="content"
+    ><div id="module-header"
+      ><table class="info"
+	><tr
+	  ><th valign="top"
+	    >Copyright</th
+	    ><td
+	    >(c) Google LLC</td
+	    ></tr
+	  ><tr
+	  ><th
+	    >License</th
+	    ><td
+	    >Apache-2.0 (see LICENSE)</td
+	    ></tr
+	  ><tr
+	  ><th
+	    >Maintainer</th
+	    ><td
+	    >hartmanng@google.com</td
+	    ></tr
+	  ><tr
+	  ><th
+	    >Stability</th
+	    ><td
+	    >unstable</td
+	    ></tr
+	  ><tr
+	  ><th
+	    >Portability</th
+	    ><td
+	    >unportable</td
+	    ></tr
+	  ><tr
+	  ><th
+	    >Safe Haskell</th
+	    ><td
+	    >None</td
+	    ></tr
+	  ></table
+	><p class="caption"
+	>FocusOnTop</p
+	></div
+      ><div id="table-of-contents"
+      ><p class="caption"
+	>Contents</p
+	><ul
+	><li
+	  ><a href="#g:1"
+	    >Usage</a
+	    ></li
+	  ></ul
+	></div
+      ><div id="description"
+      ><p class="caption"
+	>Description</p
+	><div class="doc"
+	><p
+	  ><code
+	    >LayoutModifier</code
+	    > that pulls the focused <code
+	    >Window</code
+	    > to the front of the screen, while preserving the
+ relative order of the rest of the <code
+	    >Window</code
+	    >s.</p
+	  ></div
+	></div
+      ><div id="synopsis"
+      ><details id="syn"
+	><summary
+	  >Synopsis</summary
+	  ><ul class="details-toggle" data-details-id="syn"
+	  ><li class="src short"
+	    ><a href="#v:focusOnTop"
+	      >focusOnTop</a
+	      > :: l Window -&gt; ModifiedLayout FocusOnTop l Window</li
+	    ></ul
+	  ></details
+	></div
+      ><div id="interface"
+      ><a href="#g:1" id="g:1"
+	><h1
+	  >Usage</h1
+	  ></a
+	><div class="doc"
+	><p
+	  >You can use this module with the following in your <code
+	    >~/.xmonad/xmonad.hs</code
+	    >:</p
+	  ><pre
+	  >import FocusOnTop</pre
+	  ><p
+	  >Then edit your <code
+	    >layoutHook</code
+	    > by adding focusOnTop:</p
+	  ><pre
+	  >myLayout = focusOnTop (Tall 1 (3/100) (1/2)) ||| Full ||| etc..
+main = xmonad def { layoutHook = myLayout }</pre
+	  ><p
+	  >For more detailed instructions on editing the layoutHook see:</p
+	  ><p
+	  ><a href="https://hackage.haskell.org/package/xmonad-contrib-0.17.0/docs/XMonad-Doc-Extending.html#Editing_the_layout_hook"
+	    >https://hackage.haskell.org/package/xmonad-contrib-0.17.0/docs/XMonad-Doc-Extending.html#Editing_the_layout_hook</a
+	    ></p
+	  ><p
+	  >This module works especially nicely with <a href="SnapLayout.html"
+	    >SnapLayout</a
+	    >:</p
+	  ><pre
+	  >import SnapLayout
+import FocusOnTop
+
+myLayout = focusOnTop snapLayout ||| Full ||| etc..
+  where
+    snapLayout :: SnapLayout a
+    snapLayout = def
+main = xmonad def { layoutHook = myLayout }</pre
+	  ></div
+	><div class="top"
+	><p class="src"
+	  ><a id="v:focusOnTop" class="def"
+	    >focusOnTop</a
+	    > :: l Window -&gt; ModifiedLayout FocusOnTop l Window <a href="src/FocusOnTop.html#focusOnTop" class="link"
+	    >Source</a
+	    > <a href="#v:focusOnTop" class="selflink"
+	    >#</a
+	    ></p
+	  ><div class="doc"
+	  ><p
+	    >focusOnTop applies the <code
+	      >FocusOnTop</code
+	      > <code
+	      >LayoutModifier</code
+	      > on the provided <code
+	      >Layout</code
+	      >, to pull the
+ focused <code
+	      >Window</code
+	      > to the front of the screen, while preserving the relative order of the rest of
+ the <code
+	      >Window</code
+	      >s.</p
+	    ></div
+	  ></div
+	></div
+      ></div
+    ><div id="footer"
+    ><p
+      >Produced by <a href="http://www.haskell.org/haddock/"
+	>Haddock</a
+	> version 2.22.0</p
+      ></div
+    ></body
+  ></html
+>

@@ -1,0 +1,2034 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><link rel="stylesheet" type="text/css" href="style.css"
+     /><script type="text/javascript" src="highlight.js"
+    ></script
+    ></head
+  ><body
+  ><pre
+    ><span class="hs-comment"
+      >-- Copyright 2022 Google LLC</span
+      ><span
+      >
+</span
+      ><a name="line-2"
+      ></a
+      ><span class="hs-comment"
+      >--</span
+      ><span
+      >
+</span
+      ><a name="line-3"
+      ></a
+      ><span class="hs-comment"
+      >-- Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span
+      ><span
+      >
+</span
+      ><a name="line-4"
+      ></a
+      ><span class="hs-comment"
+      >-- you may not use this file except in compliance with the License.</span
+      ><span
+      >
+</span
+      ><a name="line-5"
+      ></a
+      ><span class="hs-comment"
+      >-- You may obtain a copy of the License at</span
+      ><span
+      >
+</span
+      ><a name="line-6"
+      ></a
+      ><span class="hs-comment"
+      >--</span
+      ><span
+      >
+</span
+      ><a name="line-7"
+      ></a
+      ><span class="hs-comment"
+      >--     https://www.apache.org/licenses/LICENSE-2.0</span
+      ><span
+      >
+</span
+      ><a name="line-8"
+      ></a
+      ><span class="hs-comment"
+      >--</span
+      ><span
+      >
+</span
+      ><a name="line-9"
+      ></a
+      ><span class="hs-comment"
+      >-- Unless required by applicable law or agreed to in writing, software</span
+      ><span
+      >
+</span
+      ><a name="line-10"
+      ></a
+      ><span class="hs-comment"
+      >-- distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span
+      ><span
+      >
+</span
+      ><a name="line-11"
+      ></a
+      ><span class="hs-comment"
+      >-- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span
+      ><span
+      >
+</span
+      ><a name="line-12"
+      ></a
+      ><span class="hs-comment"
+      >-- See the License for the specific language governing permissions and</span
+      ><span
+      >
+</span
+      ><a name="line-13"
+      ></a
+      ><span class="hs-comment"
+      >-- limitations under the License.</span
+      ><span
+      >
+</span
+      ><a name="line-14"
+      ></a
+      ><span
+      >
+</span
+      ><a name="line-15"
+      ></a
+      ><span class="hs-comment"
+      >---------------------------------------------------------------------------------------------------</span
+      ><span
+      >
+</span
+      ><a name="line-16"
+      ></a
+      ><span class="hs-comment"
+      >-- |</span
+      ><span
+      >
+</span
+      ><a name="line-17"
+      ></a
+      ><span class="hs-comment"
+      >-- Module      :  FocusOnTopListOps</span
+      ><span
+      >
+</span
+      ><a name="line-18"
+      ></a
+      ><span class="hs-comment"
+      >-- Description :  A collection of @List@ helper functions intended for &quot;FocusOnTop&quot;.</span
+      ><span
+      >
+</span
+      ><a name="line-19"
+      ></a
+      ><span class="hs-comment"
+      >-- Copyright   :  (c) Google LLC</span
+      ><span
+      >
+</span
+      ><a name="line-20"
+      ></a
+      ><span class="hs-comment"
+      >-- License     :  Apache-2.0 (see LICENSE)</span
+      ><span
+      >
+</span
+      ><a name="line-21"
+      ></a
+      ><span class="hs-comment"
+      >--</span
+      ><span
+      >
+</span
+      ><a name="line-22"
+      ></a
+      ><span class="hs-comment"
+      >-- Maintainer  :  hartmanng@google.com</span
+      ><span
+      >
+</span
+      ><a name="line-23"
+      ></a
+      ><span class="hs-comment"
+      >-- Stability   :  unstable</span
+      ><span
+      >
+</span
+      ><a name="line-24"
+      ></a
+      ><span class="hs-comment"
+      >-- Portability :  portable</span
+      ><span
+      >
+</span
+      ><a name="line-25"
+      ></a
+      ><span class="hs-comment"
+      >--</span
+      ><span
+      >
+</span
+      ><a name="line-26"
+      ></a
+      ><span class="hs-comment"
+      >-- A small collection of helper @List@ operations that is primarily intended for use with the</span
+      ><span
+      >
+</span
+      ><a name="line-27"
+      ></a
+      ><span class="hs-comment"
+      >-- &quot;FocusOnTop&quot; module. They are, however, generic, and therefore could be used</span
+      ><span
+      >
+</span
+      ><a name="line-28"
+      ></a
+      ><span class="hs-comment"
+      >-- elsewhere, in theory.</span
+      ><span
+      >
+</span
+      ><a name="line-29"
+      ></a
+      ><span class="hs-comment"
+      >---------------------------------------------------------------------------------------------------</span
+      ><span
+      >
+</span
+      ><a name="line-30"
+      ></a
+      ><span
+      >
+</span
+      ><a name="line-31"
+      ></a
+      ><span class="hs-keyword"
+      >module</span
+      ><span
+      > </span
+      ><span class="hs-identifier"
+      >FocusOnTopListOps</span
+      ><span
+      > </span
+      ><span class="hs-special"
+      >(</span
+      ><span
+      >
+</span
+      ><a name="line-32"
+      ></a
+      ><span
+      >    </span
+      ><a href="FocusOnTopListOps.html#remove"
+      ><span class="hs-identifier hs-var"
+	>remove</span
+	></a
+      ><span class="hs-special"
+      >,</span
+      ><span
+      >
+</span
+      ><a name="line-33"
+      ></a
+      ><span
+      >    </span
+      ><a href="FocusOnTopListOps.html#removeAssoc"
+      ><span class="hs-identifier hs-var"
+	>removeAssoc</span
+	></a
+      ><span class="hs-special"
+      >,</span
+      ><span
+      >
+</span
+      ><a name="line-34"
+      ></a
+      ><span
+      >    </span
+      ><a href="FocusOnTopListOps.html#reverseConcat"
+      ><span class="hs-identifier hs-var"
+	>reverseConcat</span
+	></a
+      ><span class="hs-special"
+      >,</span
+      ><span
+      >
+</span
+      ><a name="line-35"
+      ></a
+      ><span
+      >    </span
+      ><a href="FocusOnTopListOps.html#maybeCons"
+      ><span class="hs-identifier hs-var"
+	>maybeCons</span
+	></a
+      ><span class="hs-special"
+      >,</span
+      ><span
+      >
+</span
+      ><a name="line-36"
+      ></a
+      ><span
+      >    </span
+      ><a href="FocusOnTopListOps.html#reorder"
+      ><span class="hs-identifier hs-var"
+	>reorder</span
+	></a
+      ><span
+      >
+</span
+      ><a name="line-37"
+      ></a
+      ><span
+      >  </span
+      ><span class="hs-special"
+      >)</span
+      ><span
+      > </span
+      ><span class="hs-keyword"
+      >where</span
+      ><span
+      >
+</span
+      ><a name="line-38"
+      ></a
+      ><span
+      >
+</span
+      ><a name="line-39"
+      ></a
+      ><span class="hs-comment"
+      >-- | remove takes an equality predicate of @a@ and @b@, a list of @a@, and a @b@, and removes the</span
+      ><span
+      >
+</span
+      ><a name="line-40"
+      ></a
+      ><span class="hs-comment"
+      >-- first occurrence of the @b@ from the list of @a@, and returns it (if applicable). This is similar</span
+      ><span
+      >
+</span
+      ><a name="line-41"
+      ></a
+      ><span class="hs-comment"
+      >-- to @Data.List@'s</span
+      ><span
+      >
+</span
+      ><a name="line-42"
+      ></a
+      ><span class="hs-comment"
+      >-- [deleteBy](https://hackage.haskell.org/package/base-4.16.1.0/docs/Data-List.html#v:deleteBy),</span
+      ><span
+      >
+</span
+      ><a name="line-43"
+      ></a
+      ><span class="hs-comment"
+      >-- except that it also returns the deleted element, if any.</span
+      ><span
+      >
+</span
+      ><a name="line-44"
+      ></a
+      ><span class="hs-identifier"
+      >remove</span
+      ><span
+      > </span
+      ><span class="hs-glyph"
+      >::</span
+      ><span
+      > </span
+      ><span class="hs-special"
+      >(</span
+      ><a href="#local-6989586621679017320"
+      ><span class="hs-identifier hs-type"
+	>a</span
+	></a
+      ><span
+      > </span
+      ><span class="hs-glyph"
+      >-&gt;</span
+      ><span
+      > </span
+      ><a href="#local-6989586621679017321"
+      ><span class="hs-identifier hs-type"
+	>b</span
+	></a
+      ><span
+      > </span
+      ><span class="hs-glyph"
+      >-&gt;</span
+      ><span
+      > </span
+      ><span class="hs-identifier hs-type"
+      >Bool</span
+      ><span class="hs-special"
+      >)</span
+      ><span
+      > </span
+      ><span class="hs-glyph"
+      >-&gt;</span
+      ><span
+      > </span
+      ><span class="hs-special"
+      >[</span
+      ><a href="#local-6989586621679017320"
+      ><span class="hs-identifier hs-type"
+	>a</span
+	></a
+      ><span class="hs-special"
+      >]</span
+      ><span
+      > </span
+      ><span class="hs-glyph"
+      >-&gt;</span
+      ><span
+      > </span
+      ><a href="#local-6989586621679017321"
+      ><span class="hs-identifier hs-type"
+	>b</span
+	></a
+      ><span
+      > </span
+      ><span class="hs-glyph"
+      >-&gt;</span
+      ><span
+      > </span
+      ><span class="hs-special"
+      >(</span
+      ><span class="hs-special"
+      >[</span
+      ><a href="#local-6989586621679017320"
+      ><span class="hs-identifier hs-type"
+	>a</span
+	></a
+      ><span class="hs-special"
+      >]</span
+      ><span class="hs-special"
+      >,</span
+      ><span
+      > </span
+      ><span class="hs-identifier hs-type"
+      >Maybe</span
+      ><span
+      > </span
+      ><a href="#local-6989586621679017320"
+      ><span class="hs-identifier hs-type"
+	>a</span
+	></a
+      ><span class="hs-special"
+      >)</span
+      ><span
+      >
+</span
+      ><a name="line-45"
+      ></a
+      ><a name="remove"
+      ><a href="FocusOnTopListOps.html#remove"
+	><span class="hs-identifier"
+	  >remove</span
+	  ></a
+	></a
+      ><span
+      > </span
+      ><span class="hs-glyph"
+      >=</span
+      ><span
+      > </span
+      ><a href="FocusOnTopListOps.html#remove%27"
+      ><span class="hs-identifier hs-var"
+	>remove'</span
+	></a
+      ><span
+      > </span
+      ><span class="hs-special"
+      >[</span
+      ><span class="hs-special"
+      >]</span
+      ><span
+      >
+</span
+      ><a name="line-46"
+      ></a
+      ><span
+      >
+</span
+      ><a name="line-47"
+      ></a
+      ><span class="hs-comment"
+      >-- | remove' is a helper for `remove` with an accumulator.</span
+      ><span
+      >
+</span
+      ><a name="line-48"
+      ></a
+      ><span class="hs-identifier"
+      >remove'</span
+      ><span
+      > </span
+      ><span class="hs-glyph"
+      >::</span
+      ><span
+      > </span
+      ><span class="hs-special"
+      >[</span
+      ><a href="#local-6989586621679015477"
+      ><span class="hs-identifier hs-type"
+	>a</span
+	></a
+      ><span class="hs-special"
+      >]</span
+      ><span
+      > </span
+      ><span class="hs-glyph"
+      >-&gt;</span
+      ><span
+      > </span
+      ><span class="hs-special"
+      >(</span
+      ><a href="#local-6989586621679015477"
+      ><span class="hs-identifier hs-type"
+	>a</span
+	></a
+      ><span
+      > </span
+      ><span class="hs-glyph"
+      >-&gt;</span
+      ><span
+      > </span
+      ><a href="#local-6989586621679015478"
+      ><span class="hs-identifier hs-type"
+	>b</span
+	></a
+      ><span
+      > </span
+      ><span class="hs-glyph"
+      >-&gt;</span
+      ><span
+      > </span
+      ><span class="hs-identifier hs-type"
+      >Bool</span
+      ><span class="hs-special"
+      >)</span
+      ><span
+      > </span
+      ><span class="hs-glyph"
+      >-&gt;</span
+      ><span
+      > </span
+      ><span class="hs-special"
+      >[</span
+      ><a href="#local-6989586621679015477"
+      ><span class="hs-identifier hs-type"
+	>a</span
+	></a
+      ><span class="hs-special"
+      >]</span
+      ><span
+      > </span
+      ><span class="hs-glyph"
+      >-&gt;</span
+      ><span
+      > </span
+      ><a href="#local-6989586621679015478"
+      ><span class="hs-identifier hs-type"
+	>b</span
+	></a
+      ><span
+      > </span
+      ><span class="hs-glyph"
+      >-&gt;</span
+      ><span
+      > </span
+      ><span class="hs-special"
+      >(</span
+      ><span class="hs-special"
+      >[</span
+      ><a href="#local-6989586621679015477"
+      ><span class="hs-identifier hs-type"
+	>a</span
+	></a
+      ><span class="hs-special"
+      >]</span
+      ><span class="hs-special"
+      >,</span
+      ><span
+      > </span
+      ><span class="hs-identifier hs-type"
+      >Maybe</span
+      ><span
+      > </span
+      ><a href="#local-6989586621679015477"
+      ><span class="hs-identifier hs-type"
+	>a</span
+	></a
+      ><span class="hs-special"
+      >)</span
+      ><span
+      >
+</span
+      ><a name="line-49"
+      ></a
+      ><a name="remove%27"
+      ><a href="FocusOnTopListOps.html#remove%27"
+	><span class="hs-identifier"
+	  >remove'</span
+	  ></a
+	></a
+      ><span
+      > </span
+      ><a name="local-6989586621679017322"
+      ><a href="#local-6989586621679017322"
+	><span class="hs-identifier"
+	  >acc</span
+	  ></a
+	></a
+      ><span
+      > </span
+      ><span class="hs-identifier"
+      >_</span
+      ><span
+      >  </span
+      ><span class="hs-special"
+      >[</span
+      ><span class="hs-special"
+      >]</span
+      ><span
+      >     </span
+      ><span class="hs-identifier"
+      >_</span
+      ><span
+      > </span
+      ><span class="hs-glyph"
+      >=</span
+      ><span
+      > </span
+      ><span class="hs-special"
+      >(</span
+      ><span class="hs-identifier hs-var"
+      >reverse</span
+      ><span
+      > </span
+      ><a href="#local-6989586621679017322"
+      ><span class="hs-identifier hs-var"
+	>acc</span
+	></a
+      ><span class="hs-special"
+      >,</span
+      ><span
+      > </span
+      ><span class="hs-identifier hs-var"
+      >Nothing</span
+      ><span class="hs-special"
+      >)</span
+      ><span
+      >
+</span
+      ><a name="line-50"
+      ></a
+      ><span class="hs-identifier"
+      >remove'</span
+      ><span
+      > </span
+      ><a name="local-6989586621679017539"
+      ><a href="#local-6989586621679017539"
+	><span class="hs-identifier"
+	  >acc</span
+	  ></a
+	></a
+      ><span
+      > </span
+      ><a name="local-6989586621679017540"
+      ><a href="#local-6989586621679017540"
+	><span class="hs-identifier"
+	  >eq</span
+	  ></a
+	></a
+      ><span
+      > </span
+      ><span class="hs-special"
+      >(</span
+      ><a name="local-6989586621679017541"
+      ><a href="#local-6989586621679017541"
+	><span class="hs-identifier"
+	  >e</span
+	  ></a
+	></a
+      ><span class="hs-glyph"
+      >:</span
+      ><a name="local-6989586621679017542"
+      ><a href="#local-6989586621679017542"
+	><span class="hs-identifier"
+	  >es</span
+	  ></a
+	></a
+      ><span class="hs-special"
+      >)</span
+      ><span
+      > </span
+      ><a name="local-6989586621679017543"
+      ><a href="#local-6989586621679017543"
+	><span class="hs-identifier"
+	  >w</span
+	  ></a
+	></a
+      ><span
+      >
+</span
+      ><a name="line-51"
+      ></a
+      ><span
+      >    </span
+      ><span class="hs-glyph"
+      >|</span
+      ><span
+      > </span
+      ><a href="#local-6989586621679017540"
+      ><span class="hs-identifier hs-var"
+	>eq</span
+	></a
+      ><span
+      > </span
+      ><a href="#local-6989586621679017541"
+      ><span class="hs-identifier hs-var"
+	>e</span
+	></a
+      ><span
+      > </span
+      ><a href="#local-6989586621679017543"
+      ><span class="hs-identifier hs-var"
+	>w</span
+	></a
+      ><span
+      >            </span
+      ><span class="hs-glyph"
+      >=</span
+      ><span
+      > </span
+      ><span class="hs-special"
+      >(</span
+      ><a href="FocusOnTopListOps.html#reverseConcat"
+      ><span class="hs-identifier hs-var"
+	>reverseConcat</span
+	></a
+      ><span
+      > </span
+      ><a href="#local-6989586621679017539"
+      ><span class="hs-identifier hs-var"
+	>acc</span
+	></a
+      ><span
+      > </span
+      ><a href="#local-6989586621679017542"
+      ><span class="hs-identifier hs-var"
+	>es</span
+	></a
+      ><span class="hs-special"
+      >,</span
+      ><span
+      > </span
+      ><span class="hs-identifier hs-var"
+      >Just</span
+      ><span
+      > </span
+      ><a href="#local-6989586621679017541"
+      ><span class="hs-identifier hs-var"
+	>e</span
+	></a
+      ><span class="hs-special"
+      >)</span
+      ><span
+      >
+</span
+      ><a name="line-52"
+      ></a
+      ><span
+      >    </span
+      ><span class="hs-glyph"
+      >|</span
+      ><span
+      > </span
+      ><span class="hs-identifier hs-var"
+      >otherwise</span
+      ><span
+      >         </span
+      ><span class="hs-glyph"
+      >=</span
+      ><span
+      > </span
+      ><a href="FocusOnTopListOps.html#remove%27"
+      ><span class="hs-identifier hs-var"
+	>remove'</span
+	></a
+      ><span
+      > </span
+      ><span class="hs-special"
+      >(</span
+      ><a href="#local-6989586621679017541"
+      ><span class="hs-identifier hs-var"
+	>e</span
+	></a
+      ><span class="hs-glyph"
+      >:</span
+      ><a href="#local-6989586621679017539"
+      ><span class="hs-identifier hs-var"
+	>acc</span
+	></a
+      ><span class="hs-special"
+      >)</span
+      ><span
+      > </span
+      ><a href="#local-6989586621679017540"
+      ><span class="hs-identifier hs-var"
+	>eq</span
+	></a
+      ><span
+      > </span
+      ><a href="#local-6989586621679017542"
+      ><span class="hs-identifier hs-var"
+	>es</span
+	></a
+      ><span
+      > </span
+      ><a href="#local-6989586621679017543"
+      ><span class="hs-identifier hs-var"
+	>w</span
+	></a
+      ><span
+      >
+</span
+      ><a name="line-53"
+      ></a
+      ><span
+      >
+</span
+      ><a name="line-54"
+      ></a
+      ><span class="hs-comment"
+      >-- | removeAssoc is a specialization of `remove` for an association list.</span
+      ><span
+      >
+</span
+      ><a name="line-55"
+      ></a
+      ><span class="hs-identifier"
+      >removeAssoc</span
+      ><span
+      > </span
+      ><span class="hs-glyph"
+      >::</span
+      ><span
+      > </span
+      ><span class="hs-identifier hs-type"
+      >Eq</span
+      ><span
+      > </span
+      ><a href="#local-6989586621679015475"
+      ><span class="hs-identifier hs-type"
+	>a</span
+	></a
+      ><span
+      > </span
+      ><span class="hs-glyph"
+      >=&gt;</span
+      ><span
+      > </span
+      ><span class="hs-special"
+      >[</span
+      ><span class="hs-special"
+      >(</span
+      ><a href="#local-6989586621679015475"
+      ><span class="hs-identifier hs-type"
+	>a</span
+	></a
+      ><span class="hs-special"
+      >,</span
+      ><span
+      > </span
+      ><a href="#local-6989586621679015476"
+      ><span class="hs-identifier hs-type"
+	>b</span
+	></a
+      ><span class="hs-special"
+      >)</span
+      ><span class="hs-special"
+      >]</span
+      ><span
+      > </span
+      ><span class="hs-glyph"
+      >-&gt;</span
+      ><span
+      > </span
+      ><a href="#local-6989586621679015475"
+      ><span class="hs-identifier hs-type"
+	>a</span
+	></a
+      ><span
+      > </span
+      ><span class="hs-glyph"
+      >-&gt;</span
+      ><span
+      > </span
+      ><span class="hs-special"
+      >(</span
+      ><span class="hs-special"
+      >[</span
+      ><span class="hs-special"
+      >(</span
+      ><a href="#local-6989586621679015475"
+      ><span class="hs-identifier hs-type"
+	>a</span
+	></a
+      ><span class="hs-special"
+      >,</span
+      ><span
+      > </span
+      ><a href="#local-6989586621679015476"
+      ><span class="hs-identifier hs-type"
+	>b</span
+	></a
+      ><span class="hs-special"
+      >)</span
+      ><span class="hs-special"
+      >]</span
+      ><span class="hs-special"
+      >,</span
+      ><span
+      > </span
+      ><span class="hs-identifier hs-type"
+      >Maybe</span
+      ><span
+      > </span
+      ><span class="hs-special"
+      >(</span
+      ><a href="#local-6989586621679015475"
+      ><span class="hs-identifier hs-type"
+	>a</span
+	></a
+      ><span class="hs-special"
+      >,</span
+      ><span
+      > </span
+      ><a href="#local-6989586621679015476"
+      ><span class="hs-identifier hs-type"
+	>b</span
+	></a
+      ><span class="hs-special"
+      >)</span
+      ><span class="hs-special"
+      >)</span
+      ><span
+      >
+</span
+      ><a name="line-56"
+      ></a
+      ><a name="removeAssoc"
+      ><a href="FocusOnTopListOps.html#removeAssoc"
+	><span class="hs-identifier"
+	  >removeAssoc</span
+	  ></a
+	></a
+      ><span
+      > </span
+      ><span class="hs-glyph"
+      >=</span
+      ><span
+      > </span
+      ><a href="FocusOnTopListOps.html#remove"
+      ><span class="hs-identifier hs-var"
+	>remove</span
+	></a
+      ><span
+      > </span
+      ><span class="hs-special"
+      >(</span
+      ><span class="hs-glyph"
+      >\</span
+      ><a name="local-6989586621679017544"
+      ><a href="#local-6989586621679017544"
+	><span class="hs-identifier"
+	  >x</span
+	  ></a
+	></a
+      ><span
+      > </span
+      ><a name="local-6989586621679017545"
+      ><a href="#local-6989586621679017545"
+	><span class="hs-identifier"
+	  >y</span
+	  ></a
+	></a
+      ><span
+      > </span
+      ><span class="hs-glyph"
+      >-&gt;</span
+      ><span
+      > </span
+      ><span class="hs-identifier hs-var"
+      >fst</span
+      ><span
+      > </span
+      ><a href="#local-6989586621679017544"
+      ><span class="hs-identifier hs-var"
+	>x</span
+	></a
+      ><span
+      > </span
+      ><span class="hs-operator hs-var"
+      >==</span
+      ><span
+      > </span
+      ><a href="#local-6989586621679017545"
+      ><span class="hs-identifier hs-var"
+	>y</span
+	></a
+      ><span class="hs-special"
+      >)</span
+      ><span
+      >
+</span
+      ><a name="line-57"
+      ></a
+      ><span
+      >
+</span
+      ><a name="line-58"
+      ></a
+      ><span class="hs-comment"
+      >-- | reverseConcat reverses the first list and then concatenates it with the second.</span
+      ><span
+      >
+</span
+      ><a name="line-59"
+      ></a
+      ><span class="hs-identifier"
+      >reverseConcat</span
+      ><span
+      > </span
+      ><span class="hs-glyph"
+      >::</span
+      ><span
+      > </span
+      ><span class="hs-special"
+      >[</span
+      ><a href="#local-6989586621679015474"
+      ><span class="hs-identifier hs-type"
+	>a</span
+	></a
+      ><span class="hs-special"
+      >]</span
+      ><span
+      > </span
+      ><span class="hs-glyph"
+      >-&gt;</span
+      ><span
+      > </span
+      ><span class="hs-special"
+      >[</span
+      ><a href="#local-6989586621679015474"
+      ><span class="hs-identifier hs-type"
+	>a</span
+	></a
+      ><span class="hs-special"
+      >]</span
+      ><span
+      > </span
+      ><span class="hs-glyph"
+      >-&gt;</span
+      ><span
+      > </span
+      ><span class="hs-special"
+      >[</span
+      ><a href="#local-6989586621679015474"
+      ><span class="hs-identifier hs-type"
+	>a</span
+	></a
+      ><span class="hs-special"
+      >]</span
+      ><span
+      >
+</span
+      ><a name="line-60"
+      ></a
+      ><a name="reverseConcat"
+      ><a href="FocusOnTopListOps.html#reverseConcat"
+	><span class="hs-identifier"
+	  >reverseConcat</span
+	  ></a
+	></a
+      ><span
+      > </span
+      ><a name="local-6989586621679017562"
+      ><a href="#local-6989586621679017562"
+	><span class="hs-identifier"
+	  >es</span
+	  ></a
+	></a
+      ><span
+      > </span
+      ><a name="local-6989586621679017563"
+      ><a href="#local-6989586621679017563"
+	><span class="hs-identifier"
+	  >l</span
+	  ></a
+	></a
+      ><span
+      > </span
+      ><span class="hs-glyph"
+      >=</span
+      ><span
+      > </span
+      ><span class="hs-identifier hs-var"
+      >foldl</span
+      ><span
+      > </span
+      ><span class="hs-special"
+      >(</span
+      ><span class="hs-identifier hs-var"
+      >flip</span
+      ><span
+      > </span
+      ><span class="hs-special"
+      >(</span
+      ><span class="hs-glyph"
+      >:</span
+      ><span class="hs-special"
+      >)</span
+      ><span class="hs-special"
+      >)</span
+      ><span
+      > </span
+      ><a href="#local-6989586621679017563"
+      ><span class="hs-identifier hs-var"
+	>l</span
+	></a
+      ><span
+      > </span
+      ><a href="#local-6989586621679017562"
+      ><span class="hs-identifier hs-var"
+	>es</span
+	></a
+      ><span
+      >
+</span
+      ><a name="line-61"
+      ></a
+      ><span
+      >
+</span
+      ><a name="line-62"
+      ></a
+      ><span class="hs-comment"
+      >-- | maybeCons will @cons@ the second element of the tuple to the first, if it exists. Otherwise it</span
+      ><span
+      >
+</span
+      ><a name="line-63"
+      ></a
+      ><span class="hs-comment"
+      >-- returns the first element as-is.</span
+      ><span
+      >
+</span
+      ><a name="line-64"
+      ></a
+      ><span class="hs-identifier"
+      >maybeCons</span
+      ><span
+      > </span
+      ><span class="hs-glyph"
+      >::</span
+      ><span
+      > </span
+      ><span class="hs-special"
+      >(</span
+      ><span class="hs-special"
+      >[</span
+      ><a href="#local-6989586621679015473"
+      ><span class="hs-identifier hs-type"
+	>a</span
+	></a
+      ><span class="hs-special"
+      >]</span
+      ><span class="hs-special"
+      >,</span
+      ><span
+      > </span
+      ><span class="hs-identifier hs-type"
+      >Maybe</span
+      ><span
+      > </span
+      ><a href="#local-6989586621679015473"
+      ><span class="hs-identifier hs-type"
+	>a</span
+	></a
+      ><span class="hs-special"
+      >)</span
+      ><span
+      > </span
+      ><span class="hs-glyph"
+      >-&gt;</span
+      ><span
+      > </span
+      ><span class="hs-special"
+      >[</span
+      ><a href="#local-6989586621679015473"
+      ><span class="hs-identifier hs-type"
+	>a</span
+	></a
+      ><span class="hs-special"
+      >]</span
+      ><span
+      >
+</span
+      ><a name="line-65"
+      ></a
+      ><a name="maybeCons"
+      ><a href="FocusOnTopListOps.html#maybeCons"
+	><span class="hs-identifier"
+	  >maybeCons</span
+	  ></a
+	></a
+      ><span
+      > </span
+      ><span class="hs-special"
+      >(</span
+      ><a name="local-6989586621679018802"
+      ><a href="#local-6989586621679018802"
+	><span class="hs-identifier"
+	  >l</span
+	  ></a
+	></a
+      ><span class="hs-special"
+      >,</span
+      ><span
+      > </span
+      ><span class="hs-identifier hs-var"
+      >Nothing</span
+      ><span class="hs-special"
+      >)</span
+      ><span
+      >  </span
+      ><span class="hs-glyph"
+      >=</span
+      ><span
+      > </span
+      ><a href="#local-6989586621679018802"
+      ><span class="hs-identifier hs-var"
+	>l</span
+	></a
+      ><span
+      >
+</span
+      ><a name="line-66"
+      ></a
+      ><span class="hs-identifier"
+      >maybeCons</span
+      ><span
+      > </span
+      ><span class="hs-special"
+      >(</span
+      ><a name="local-6989586621679018803"
+      ><a href="#local-6989586621679018803"
+	><span class="hs-identifier"
+	  >l</span
+	  ></a
+	></a
+      ><span class="hs-special"
+      >,</span
+      ><span
+      > </span
+      ><span class="hs-identifier hs-var"
+      >Just</span
+      ><span
+      > </span
+      ><a name="local-6989586621679018804"
+      ><a href="#local-6989586621679018804"
+	><span class="hs-identifier"
+	  >e</span
+	  ></a
+	></a
+      ><span class="hs-special"
+      >)</span
+      ><span
+      >   </span
+      ><span class="hs-glyph"
+      >=</span
+      ><span
+      > </span
+      ><a href="#local-6989586621679018804"
+      ><span class="hs-identifier hs-var"
+	>e</span
+	></a
+      ><span class="hs-glyph"
+      >:</span
+      ><a href="#local-6989586621679018803"
+      ><span class="hs-identifier hs-var"
+	>l</span
+	></a
+      ><span
+      >
+</span
+      ><a name="line-67"
+      ></a
+      ><span
+      >
+</span
+      ><a name="line-68"
+      ></a
+      ><span class="hs-comment"
+      >-- | reorder takes an association list, @l@, and a list of keys to the association list, @o@. The</span
+      ><span
+      >
+</span
+      ><a name="line-69"
+      ></a
+      ><span class="hs-comment"
+      >-- latter represents the desired ordering of the former. Any elements from @l@ that match keys in</span
+      ><span
+      >
+</span
+      ><a name="line-70"
+      ></a
+      ><span class="hs-comment"
+      >-- @o@ will be shuffled to match the relative ordering of @o@, and any elements in @l@ that are not</span
+      ><span
+      >
+</span
+      ><a name="line-71"
+      ></a
+      ><span class="hs-comment"
+      >-- found in @o@ will maintain their relative order. The matched elements will appear after the</span
+      ><span
+      >
+</span
+      ><a name="line-72"
+      ></a
+      ><span class="hs-comment"
+      >-- unmatched elements in the result.</span
+      ><span
+      >
+</span
+      ><a name="line-73"
+      ></a
+      ><span class="hs-identifier"
+      >reorder</span
+      ><span
+      > </span
+      ><span class="hs-glyph"
+      >::</span
+      ><span
+      > </span
+      ><span class="hs-identifier hs-type"
+      >Eq</span
+      ><span
+      > </span
+      ><a href="#local-6989586621679015471"
+      ><span class="hs-identifier hs-type"
+	>a</span
+	></a
+      ><span
+      > </span
+      ><span class="hs-glyph"
+      >=&gt;</span
+      ><span
+      > </span
+      ><span class="hs-special"
+      >[</span
+      ><span class="hs-special"
+      >(</span
+      ><a href="#local-6989586621679015471"
+      ><span class="hs-identifier hs-type"
+	>a</span
+	></a
+      ><span class="hs-special"
+      >,</span
+      ><span
+      > </span
+      ><a href="#local-6989586621679015472"
+      ><span class="hs-identifier hs-type"
+	>b</span
+	></a
+      ><span class="hs-special"
+      >)</span
+      ><span class="hs-special"
+      >]</span
+      ><span
+      > </span
+      ><span class="hs-glyph"
+      >-&gt;</span
+      ><span
+      > </span
+      ><span class="hs-special"
+      >[</span
+      ><a href="#local-6989586621679015471"
+      ><span class="hs-identifier hs-type"
+	>a</span
+	></a
+      ><span class="hs-special"
+      >]</span
+      ><span
+      > </span
+      ><span class="hs-glyph"
+      >-&gt;</span
+      ><span
+      > </span
+      ><span class="hs-special"
+      >[</span
+      ><span class="hs-special"
+      >(</span
+      ><a href="#local-6989586621679015471"
+      ><span class="hs-identifier hs-type"
+	>a</span
+	></a
+      ><span class="hs-special"
+      >,</span
+      ><span
+      > </span
+      ><a href="#local-6989586621679015472"
+      ><span class="hs-identifier hs-type"
+	>b</span
+	></a
+      ><span class="hs-special"
+      >)</span
+      ><span class="hs-special"
+      >]</span
+      ><span
+      >
+</span
+      ><a name="line-74"
+      ></a
+      ><a name="reorder"
+      ><a href="FocusOnTopListOps.html#reorder"
+	><span class="hs-identifier"
+	  >reorder</span
+	  ></a
+	></a
+      ><span
+      > </span
+      ><span class="hs-glyph"
+      >=</span
+      ><span
+      > </span
+      ><a href="FocusOnTopListOps.html#reorder%27"
+      ><span class="hs-identifier hs-var"
+	>reorder'</span
+	></a
+      ><span
+      > </span
+      ><span class="hs-special"
+      >[</span
+      ><span class="hs-special"
+      >]</span
+      ><span
+      >
+</span
+      ><a name="line-75"
+      ></a
+      ><span
+      >
+</span
+      ><a name="line-76"
+      ></a
+      ><span class="hs-comment"
+      >-- | reorder' is a helper for `reorder` with an accumulator.</span
+      ><span
+      >
+</span
+      ><a name="line-77"
+      ></a
+      ><span class="hs-identifier"
+      >reorder'</span
+      ><span
+      > </span
+      ><span class="hs-glyph"
+      >::</span
+      ><span
+      > </span
+      ><span class="hs-identifier hs-type"
+      >Eq</span
+      ><span
+      > </span
+      ><a href="#local-6989586621679015469"
+      ><span class="hs-identifier hs-type"
+	>a</span
+	></a
+      ><span
+      > </span
+      ><span class="hs-glyph"
+      >=&gt;</span
+      ><span
+      > </span
+      ><span class="hs-special"
+      >[</span
+      ><span class="hs-special"
+      >(</span
+      ><a href="#local-6989586621679015469"
+      ><span class="hs-identifier hs-type"
+	>a</span
+	></a
+      ><span class="hs-special"
+      >,</span
+      ><span
+      > </span
+      ><a href="#local-6989586621679015470"
+      ><span class="hs-identifier hs-type"
+	>b</span
+	></a
+      ><span class="hs-special"
+      >)</span
+      ><span class="hs-special"
+      >]</span
+      ><span
+      > </span
+      ><span class="hs-glyph"
+      >-&gt;</span
+      ><span
+      > </span
+      ><span class="hs-special"
+      >[</span
+      ><span class="hs-special"
+      >(</span
+      ><a href="#local-6989586621679015469"
+      ><span class="hs-identifier hs-type"
+	>a</span
+	></a
+      ><span class="hs-special"
+      >,</span
+      ><span
+      > </span
+      ><a href="#local-6989586621679015470"
+      ><span class="hs-identifier hs-type"
+	>b</span
+	></a
+      ><span class="hs-special"
+      >)</span
+      ><span class="hs-special"
+      >]</span
+      ><span
+      > </span
+      ><span class="hs-glyph"
+      >-&gt;</span
+      ><span
+      > </span
+      ><span class="hs-special"
+      >[</span
+      ><a href="#local-6989586621679015469"
+      ><span class="hs-identifier hs-type"
+	>a</span
+	></a
+      ><span class="hs-special"
+      >]</span
+      ><span
+      > </span
+      ><span class="hs-glyph"
+      >-&gt;</span
+      ><span
+      > </span
+      ><span class="hs-special"
+      >[</span
+      ><span class="hs-special"
+      >(</span
+      ><a href="#local-6989586621679015469"
+      ><span class="hs-identifier hs-type"
+	>a</span
+	></a
+      ><span class="hs-special"
+      >,</span
+      ><span
+      > </span
+      ><a href="#local-6989586621679015470"
+      ><span class="hs-identifier hs-type"
+	>b</span
+	></a
+      ><span class="hs-special"
+      >)</span
+      ><span class="hs-special"
+      >]</span
+      ><span
+      >
+</span
+      ><a name="line-78"
+      ></a
+      ><a name="reorder%27"
+      ><a href="FocusOnTopListOps.html#reorder%27"
+	><span class="hs-identifier"
+	  >reorder'</span
+	  ></a
+	></a
+      ><span
+      > </span
+      ><a name="local-6989586621679018805"
+      ><a href="#local-6989586621679018805"
+	><span class="hs-identifier"
+	  >acc</span
+	  ></a
+	></a
+      ><span
+      > </span
+      ><a name="local-6989586621679018806"
+      ><a href="#local-6989586621679018806"
+	><span class="hs-identifier"
+	  >l</span
+	  ></a
+	></a
+      ><span
+      > </span
+      ><span class="hs-special"
+      >[</span
+      ><span class="hs-special"
+      >]</span
+      ><span
+      >     </span
+      ><span class="hs-glyph"
+      >=</span
+      ><span
+      > </span
+      ><a href="#local-6989586621679018806"
+      ><span class="hs-identifier hs-var"
+	>l</span
+	></a
+      ><span
+      > </span
+      ><span class="hs-operator hs-var"
+      >++</span
+      ><span
+      > </span
+      ><span class="hs-identifier hs-var"
+      >reverse</span
+      ><span
+      > </span
+      ><a href="#local-6989586621679018805"
+      ><span class="hs-identifier hs-var"
+	>acc</span
+	></a
+      ><span
+      >
+</span
+      ><a name="line-79"
+      ></a
+      ><span class="hs-identifier"
+      >reorder'</span
+      ><span
+      > </span
+      ><a name="local-6989586621679018807"
+      ><a href="#local-6989586621679018807"
+	><span class="hs-identifier"
+	  >acc</span
+	  ></a
+	></a
+      ><span
+      > </span
+      ><a name="local-6989586621679018808"
+      ><a href="#local-6989586621679018808"
+	><span class="hs-identifier"
+	  >l</span
+	  ></a
+	></a
+      ><span
+      > </span
+      ><span class="hs-special"
+      >(</span
+      ><a name="local-6989586621679018809"
+      ><a href="#local-6989586621679018809"
+	><span class="hs-identifier"
+	  >o</span
+	  ></a
+	></a
+      ><span class="hs-glyph"
+      >:</span
+      ><a name="local-6989586621679018810"
+      ><a href="#local-6989586621679018810"
+	><span class="hs-identifier"
+	  >os</span
+	  ></a
+	></a
+      ><span class="hs-special"
+      >)</span
+      ><span
+      > </span
+      ><span class="hs-glyph"
+      >=</span
+      ><span
+      > </span
+      ><a href="FocusOnTopListOps.html#reorder%27%27"
+      ><span class="hs-identifier hs-var"
+	>reorder''</span
+	></a
+      ><span
+      > </span
+      ><a href="#local-6989586621679018807"
+      ><span class="hs-identifier hs-var"
+	>acc</span
+	></a
+      ><span
+      > </span
+      ><a href="#local-6989586621679018810"
+      ><span class="hs-identifier hs-var"
+	>os</span
+	></a
+      ><span
+      > </span
+      ><span class="hs-operator hs-var"
+      >$</span
+      ><span
+      > </span
+      ><a href="FocusOnTopListOps.html#removeAssoc"
+      ><span class="hs-identifier hs-var"
+	>removeAssoc</span
+	></a
+      ><span
+      > </span
+      ><a href="#local-6989586621679018808"
+      ><span class="hs-identifier hs-var"
+	>l</span
+	></a
+      ><span
+      > </span
+      ><a href="#local-6989586621679018809"
+      ><span class="hs-identifier hs-var"
+	>o</span
+	></a
+      ><span
+      >
+</span
+      ><a name="line-80"
+      ></a
+      ><span
+      >
+</span
+      ><a name="line-81"
+      ></a
+      ><span class="hs-comment"
+      >-- | reorder'' is a helper for reorder' to unpack the tuple and @Maybe@ that result from the call to</span
+      ><span
+      >
+</span
+      ><a name="line-82"
+      ></a
+      ><span class="hs-comment"
+      >-- `removeAssoc` and add the removed element (if it exists) to the accumulator.</span
+      ><span
+      >
+</span
+      ><a name="line-83"
+      ></a
+      ><span class="hs-identifier"
+      >reorder''</span
+      ><span
+      > </span
+      ><span class="hs-glyph"
+      >::</span
+      ><span
+      > </span
+      ><span class="hs-identifier hs-type"
+      >Eq</span
+      ><span
+      > </span
+      ><a href="#local-6989586621679011533"
+      ><span class="hs-identifier hs-type"
+	>a</span
+	></a
+      ><span
+      > </span
+      ><span class="hs-glyph"
+      >=&gt;</span
+      ><span
+      > </span
+      ><span class="hs-special"
+      >[</span
+      ><span class="hs-special"
+      >(</span
+      ><a href="#local-6989586621679011533"
+      ><span class="hs-identifier hs-type"
+	>a</span
+	></a
+      ><span class="hs-special"
+      >,</span
+      ><span
+      > </span
+      ><a href="#local-6989586621679011534"
+      ><span class="hs-identifier hs-type"
+	>b</span
+	></a
+      ><span class="hs-special"
+      >)</span
+      ><span class="hs-special"
+      >]</span
+      ><span
+      > </span
+      ><span class="hs-glyph"
+      >-&gt;</span
+      ><span
+      > </span
+      ><span class="hs-special"
+      >[</span
+      ><a href="#local-6989586621679011533"
+      ><span class="hs-identifier hs-type"
+	>a</span
+	></a
+      ><span class="hs-special"
+      >]</span
+      ><span
+      > </span
+      ><span class="hs-glyph"
+      >-&gt;</span
+      ><span
+      > </span
+      ><span class="hs-special"
+      >(</span
+      ><span class="hs-special"
+      >[</span
+      ><span class="hs-special"
+      >(</span
+      ><a href="#local-6989586621679011533"
+      ><span class="hs-identifier hs-type"
+	>a</span
+	></a
+      ><span class="hs-special"
+      >,</span
+      ><span
+      > </span
+      ><a href="#local-6989586621679011534"
+      ><span class="hs-identifier hs-type"
+	>b</span
+	></a
+      ><span class="hs-special"
+      >)</span
+      ><span class="hs-special"
+      >]</span
+      ><span class="hs-special"
+      >,</span
+      ><span
+      > </span
+      ><span class="hs-identifier hs-type"
+      >Maybe</span
+      ><span
+      > </span
+      ><span class="hs-special"
+      >(</span
+      ><a href="#local-6989586621679011533"
+      ><span class="hs-identifier hs-type"
+	>a</span
+	></a
+      ><span class="hs-special"
+      >,</span
+      ><span
+      > </span
+      ><a href="#local-6989586621679011534"
+      ><span class="hs-identifier hs-type"
+	>b</span
+	></a
+      ><span class="hs-special"
+      >)</span
+      ><span class="hs-special"
+      >)</span
+      ><span
+      > </span
+      ><span class="hs-glyph"
+      >-&gt;</span
+      ><span
+      > </span
+      ><span class="hs-special"
+      >[</span
+      ><span class="hs-special"
+      >(</span
+      ><a href="#local-6989586621679011533"
+      ><span class="hs-identifier hs-type"
+	>a</span
+	></a
+      ><span class="hs-special"
+      >,</span
+      ><span
+      > </span
+      ><a href="#local-6989586621679011534"
+      ><span class="hs-identifier hs-type"
+	>b</span
+	></a
+      ><span class="hs-special"
+      >)</span
+      ><span class="hs-special"
+      >]</span
+      ><span
+      >
+</span
+      ><a name="line-84"
+      ></a
+      ><a name="reorder%27%27"
+      ><a href="FocusOnTopListOps.html#reorder%27%27"
+	><span class="hs-identifier"
+	  >reorder''</span
+	  ></a
+	></a
+      ><span
+      > </span
+      ><a name="local-6989586621679018811"
+      ><a href="#local-6989586621679018811"
+	><span class="hs-identifier"
+	  >acc</span
+	  ></a
+	></a
+      ><span
+      > </span
+      ><a name="local-6989586621679018812"
+      ><a href="#local-6989586621679018812"
+	><span class="hs-identifier"
+	  >f</span
+	  ></a
+	></a
+      ><span
+      > </span
+      ><span class="hs-special"
+      >(</span
+      ><a name="local-6989586621679018813"
+      ><a href="#local-6989586621679018813"
+	><span class="hs-identifier"
+	  >l</span
+	  ></a
+	></a
+      ><span class="hs-special"
+      >,</span
+      ><span
+      > </span
+      ><span class="hs-identifier hs-var"
+      >Nothing</span
+      ><span class="hs-special"
+      >)</span
+      ><span
+      >  </span
+      ><span class="hs-glyph"
+      >=</span
+      ><span
+      > </span
+      ><a href="FocusOnTopListOps.html#reorder%27"
+      ><span class="hs-identifier hs-var"
+	>reorder'</span
+	></a
+      ><span
+      > </span
+      ><a href="#local-6989586621679018811"
+      ><span class="hs-identifier hs-var"
+	>acc</span
+	></a
+      ><span
+      > </span
+      ><a href="#local-6989586621679018813"
+      ><span class="hs-identifier hs-var"
+	>l</span
+	></a
+      ><span
+      > </span
+      ><a href="#local-6989586621679018812"
+      ><span class="hs-identifier hs-var"
+	>f</span
+	></a
+      ><span
+      >
+</span
+      ><a name="line-85"
+      ></a
+      ><span class="hs-identifier"
+      >reorder''</span
+      ><span
+      > </span
+      ><a name="local-6989586621679018814"
+      ><a href="#local-6989586621679018814"
+	><span class="hs-identifier"
+	  >acc</span
+	  ></a
+	></a
+      ><span
+      > </span
+      ><a name="local-6989586621679018815"
+      ><a href="#local-6989586621679018815"
+	><span class="hs-identifier"
+	  >f</span
+	  ></a
+	></a
+      ><span
+      > </span
+      ><span class="hs-special"
+      >(</span
+      ><a name="local-6989586621679018816"
+      ><a href="#local-6989586621679018816"
+	><span class="hs-identifier"
+	  >l</span
+	  ></a
+	></a
+      ><span class="hs-special"
+      >,</span
+      ><span
+      > </span
+      ><span class="hs-identifier hs-var"
+      >Just</span
+      ><span
+      > </span
+      ><a name="local-6989586621679018817"
+      ><a href="#local-6989586621679018817"
+	><span class="hs-identifier"
+	  >e</span
+	  ></a
+	></a
+      ><span class="hs-special"
+      >)</span
+      ><span
+      >   </span
+      ><span class="hs-glyph"
+      >=</span
+      ><span
+      > </span
+      ><a href="FocusOnTopListOps.html#reorder%27"
+      ><span class="hs-identifier hs-var"
+	>reorder'</span
+	></a
+      ><span
+      > </span
+      ><span class="hs-special"
+      >(</span
+      ><a href="#local-6989586621679018817"
+      ><span class="hs-identifier hs-var"
+	>e</span
+	></a
+      ><span class="hs-glyph"
+      >:</span
+      ><a href="#local-6989586621679018814"
+      ><span class="hs-identifier hs-var"
+	>acc</span
+	></a
+      ><span class="hs-special"
+      >)</span
+      ><span
+      > </span
+      ><a href="#local-6989586621679018816"
+      ><span class="hs-identifier hs-var"
+	>l</span
+	></a
+      ><span
+      > </span
+      ><a href="#local-6989586621679018815"
+      ><span class="hs-identifier hs-var"
+	>f</span
+	></a
+      ><span
+      >
+</span
+      ><a name="line-86"
+      ></a
+      ></pre
+    ></body
+  ></html
+>

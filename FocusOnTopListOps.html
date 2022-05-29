@@ -1,0 +1,246 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+><head
+  ><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+     /><title
+    >FocusOnTopListOps</title
+    ><link href="ocean.css" rel="stylesheet" type="text/css" title="Ocean"
+     /><link rel="stylesheet" type="text/css" href="quick-jump.css"
+     /><script src="haddock-bundle.min.js" async="async" type="text/javascript"
+    ></script
+    ><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"
+    ></script
+    ></head
+  ><body
+  ><div id="package-header"
+    ><ul class="links" id="page-menu"
+      ><li
+	><a href="src/FocusOnTopListOps.html"
+	  >Source</a
+	  ></li
+	><li
+	><a href="index.html"
+	  >Contents</a
+	  ></li
+	><li
+	><a href="doc-index.html"
+	  >Index</a
+	  ></li
+	></ul
+      ><p class="caption empty"
+      >&nbsp;</p
+      ></div
+    ><div id="content"
+    ><div id="module-header"
+      ><table class="info"
+	><tr
+	  ><th valign="top"
+	    >Copyright</th
+	    ><td
+	    >(c) Google LLC</td
+	    ></tr
+	  ><tr
+	  ><th
+	    >License</th
+	    ><td
+	    >Apache-2.0 (see LICENSE)</td
+	    ></tr
+	  ><tr
+	  ><th
+	    >Maintainer</th
+	    ><td
+	    >hartmanng@google.com</td
+	    ></tr
+	  ><tr
+	  ><th
+	    >Stability</th
+	    ><td
+	    >unstable</td
+	    ></tr
+	  ><tr
+	  ><th
+	    >Portability</th
+	    ><td
+	    >portable</td
+	    ></tr
+	  ><tr
+	  ><th
+	    >Safe Haskell</th
+	    ><td
+	    >Safe</td
+	    ></tr
+	  ></table
+	><p class="caption"
+	>FocusOnTopListOps</p
+	></div
+      ><div id="description"
+      ><p class="caption"
+	>Description</p
+	><div class="doc"
+	><p
+	  >A small collection of helper <code
+	    >List</code
+	    > operations that is primarily intended for use with the
+ <a href="FocusOnTop.html"
+	    >FocusOnTop</a
+	    > module. They are, however, generic, and therefore could be used
+ elsewhere, in theory.</p
+	  ></div
+	></div
+      ><div id="synopsis"
+      ><details id="syn"
+	><summary
+	  >Synopsis</summary
+	  ><ul class="details-toggle" data-details-id="syn"
+	  ><li class="src short"
+	    ><a href="#v:remove"
+	      >remove</a
+	      > :: (a -&gt; b -&gt; Bool) -&gt; [a] -&gt; b -&gt; ([a], Maybe a)</li
+	    ><li class="src short"
+	    ><a href="#v:removeAssoc"
+	      >removeAssoc</a
+	      > :: Eq a =&gt; [(a, b)] -&gt; a -&gt; ([(a, b)], Maybe (a, b))</li
+	    ><li class="src short"
+	    ><a href="#v:reverseConcat"
+	      >reverseConcat</a
+	      > :: [a] -&gt; [a] -&gt; [a]</li
+	    ><li class="src short"
+	    ><a href="#v:maybeCons"
+	      >maybeCons</a
+	      > :: ([a], Maybe a) -&gt; [a]</li
+	    ><li class="src short"
+	    ><a href="#v:reorder"
+	      >reorder</a
+	      > :: Eq a =&gt; [(a, b)] -&gt; [a] -&gt; [(a, b)]</li
+	    ></ul
+	  ></details
+	></div
+      ><div id="interface"
+      ><h1
+	>Documentation</h1
+	><div class="top"
+	><p class="src"
+	  ><a id="v:remove" class="def"
+	    >remove</a
+	    > :: (a -&gt; b -&gt; Bool) -&gt; [a] -&gt; b -&gt; ([a], Maybe a) <a href="src/FocusOnTopListOps.html#remove" class="link"
+	    >Source</a
+	    > <a href="#v:remove" class="selflink"
+	    >#</a
+	    ></p
+	  ><div class="doc"
+	  ><p
+	    >remove takes an equality predicate of <code
+	      >a</code
+	      > and <code
+	      >b</code
+	      >, a list of <code
+	      >a</code
+	      >, and a <code
+	      >b</code
+	      >, and removes the
+ first occurrence of the <code
+	      >b</code
+	      > from the list of <code
+	      >a</code
+	      >, and returns it (if applicable). This is similar
+ to <code
+	      >Data.List</code
+	      >'s
+ <a href="https://hackage.haskell.org/package/base-4.16.1.0/docs/Data-List.html#v:deleteBy"
+	      >deleteBy</a
+	      >,
+ except that it also returns the deleted element, if any.</p
+	    ></div
+	  ></div
+	><div class="top"
+	><p class="src"
+	  ><a id="v:removeAssoc" class="def"
+	    >removeAssoc</a
+	    > :: Eq a =&gt; [(a, b)] -&gt; a -&gt; ([(a, b)], Maybe (a, b)) <a href="src/FocusOnTopListOps.html#removeAssoc" class="link"
+	    >Source</a
+	    > <a href="#v:removeAssoc" class="selflink"
+	    >#</a
+	    ></p
+	  ><div class="doc"
+	  ><p
+	    >removeAssoc is a specialization of <code
+	      ><a href="FocusOnTopListOps.html#v:remove" title="FocusOnTopListOps"
+		>remove</a
+		></code
+	      > for an association list.</p
+	    ></div
+	  ></div
+	><div class="top"
+	><p class="src"
+	  ><a id="v:reverseConcat" class="def"
+	    >reverseConcat</a
+	    > :: [a] -&gt; [a] -&gt; [a] <a href="src/FocusOnTopListOps.html#reverseConcat" class="link"
+	    >Source</a
+	    > <a href="#v:reverseConcat" class="selflink"
+	    >#</a
+	    ></p
+	  ><div class="doc"
+	  ><p
+	    >reverseConcat reverses the first list and then concatenates it with the second.</p
+	    ></div
+	  ></div
+	><div class="top"
+	><p class="src"
+	  ><a id="v:maybeCons" class="def"
+	    >maybeCons</a
+	    > :: ([a], Maybe a) -&gt; [a] <a href="src/FocusOnTopListOps.html#maybeCons" class="link"
+	    >Source</a
+	    > <a href="#v:maybeCons" class="selflink"
+	    >#</a
+	    ></p
+	  ><div class="doc"
+	  ><p
+	    >maybeCons will <code
+	      >cons</code
+	      > the second element of the tuple to the first, if it exists. Otherwise it
+ returns the first element as-is.</p
+	    ></div
+	  ></div
+	><div class="top"
+	><p class="src"
+	  ><a id="v:reorder" class="def"
+	    >reorder</a
+	    > :: Eq a =&gt; [(a, b)] -&gt; [a] -&gt; [(a, b)] <a href="src/FocusOnTopListOps.html#reorder" class="link"
+	    >Source</a
+	    > <a href="#v:reorder" class="selflink"
+	    >#</a
+	    ></p
+	  ><div class="doc"
+	  ><p
+	    >reorder takes an association list, <code
+	      >l</code
+	      >, and a list of keys to the association list, <code
+	      >o</code
+	      >. The
+ latter represents the desired ordering of the former. Any elements from <code
+	      >l</code
+	      > that match keys in
+ <code
+	      >o</code
+	      > will be shuffled to match the relative ordering of <code
+	      >o</code
+	      >, and any elements in <code
+	      >l</code
+	      > that are not
+ found in <code
+	      >o</code
+	      > will maintain their relative order. The matched elements will appear after the
+ unmatched elements in the result.</p
+	    ></div
+	  ></div
+	></div
+      ></div
+    ><div id="footer"
+    ><p
+      >Produced by <a href="http://www.haskell.org/haddock/"
+	>Haddock</a
+	> version 2.22.0</p
+      ></div
+    ></body
+  ></html
+>
